@@ -1,12 +1,37 @@
-<p>top works!</p>
-<button mat-button>Basic</button>
-<button mat-button color="primary">Primary</button>
-<button mat-button color="accent">Accent</button>
-<button mat-button color="warn">Warn</button>
-<button mat-button disabled>Disabled</button>
+<mat-toolbar color="primary" class="toolbar">
+    <span>HeritageView</span>
+</mat-toolbar>
 
-<button mat-raised-button>Basic</button>
-<button mat-raised-button color="primary">Primary</button>
-<button mat-raised-button color="accent">Accent</button>
-<button mat-raised-button color="warn">Warn</button>
-<button mat-raised-button disabled>Disabled</button>
+<div class="content">
+    <div class="top-container">
+            <fieldset class="margin-left">
+                <legend>難易度変更</legend>
+                <button mat-raised-button  color="primary">かんたん</button>
+                <button mat-raised-button class="normal-difficulty" color="primary">ふつう</button>
+                <p>かんたん：  時間経過で次の問題に進みます</p>
+                <p>ふつう：  正解するまで次の問題に進みません</p>
+            </fieldset>
+
+            <button mat-raised-button class="how-to-play" color="primary">遊び方</button>
+    </div>
+    
+    <p class="margin-left explanatory">選択された地域の世界遺産が計５問出題されます</p>
+    
+    <mat-grid-list cols="3">
+        <mat-grid-tile *ngFor="let card of cards">
+    
+            <button mat-button>
+                <mat-card class="card">
+                    <div class="image-trim">
+                        <img mat-card-image src={{card.src}} alt="world image" class="card-img">
+                    </div>
+                    <mat-card-title>{{card.title}}</mat-card-title>
+                </mat-card>
+            </button>
+           
+    
+        </mat-grid-tile>
+    </mat-grid-list>
+
+</div>
+
