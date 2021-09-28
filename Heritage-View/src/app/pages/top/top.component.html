@@ -1,16 +1,6 @@
-<mat-toolbar color="primary" class="toolbar">
-    <span>HeritageView</span>
-</mat-toolbar>
-
 <div class="content">
     <div class="top-container">
-            <fieldset class="margin-left">
-                <legend>難易度変更</legend>
-                <button mat-raised-button  color="primary">かんたん</button>
-                <button mat-raised-button class="normal-difficulty" color="primary">ふつう</button>
-                <p>かんたん：  時間経過で次の問題に進みます</p>
-                <p>ふつう：  正解するまで次の問題に進みません</p>
-            </fieldset>
+            <app-difficulty-set class="margin-left"></app-difficulty-set>
 
             <button mat-raised-button class="how-to-play" color="primary">遊び方</button>
     </div>
