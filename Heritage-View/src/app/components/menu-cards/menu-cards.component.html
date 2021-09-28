@@ -1,6 +1,5 @@
-<mat-grid-list cols="3">
-    <mat-grid-tile *ngFor="let card of cards">
-
+<div class="wrap">
+    <div class="item" *ngFor="let card of cards">
         <button mat-button>
             <mat-card class="card">
                 <div class="image-trim">
@@ -9,6 +8,5 @@
                 <mat-card-title>{{card.title}}</mat-card-title>
             </mat-card>
         </button>
-
-    </mat-grid-tile>
-</mat-grid-list>
+    </div>
+</div>
