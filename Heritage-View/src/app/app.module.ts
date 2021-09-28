@@ -5,6 +5,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TopComponent } from './pages/top/top.component';
+import { MenuCardsComponent } from './components/menu-cards/menu-cards.component';
 // material
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -17,7 +18,8 @@ import { MatRadioModule } from '@angular/material/radio';
 @NgModule({
   declarations: [
     AppComponent,
-    TopComponent
+    TopComponent,
+    MenuCardsComponent
   ],
   imports: [
     BrowserModule,

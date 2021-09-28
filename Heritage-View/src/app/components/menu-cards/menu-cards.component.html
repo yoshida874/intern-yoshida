@@ -1,0 +1,14 @@
+<mat-grid-list cols="3">
+    <mat-grid-tile *ngFor="let card of cards">
+
+        <button mat-button>
+            <mat-card class="card">
+                <div class="image-trim">
+                    <img mat-card-image src={{card.src}} alt="world image" class="card-img">
+                </div>
+                <mat-card-title>{{card.title}}</mat-card-title>
+            </mat-card>
+        </button>
+
+    </mat-grid-tile>
+</mat-grid-list>
