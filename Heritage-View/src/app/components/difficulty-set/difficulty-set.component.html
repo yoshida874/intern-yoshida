@@ -1,0 +1,7 @@
+<fieldset>
+    <legend>難易度変更</legend>
+    <button mat-raised-button  [color]="difficulty === 0 ? 'primary' : 'accent' "  (click)= "difficultyChange(0)">かんたん</button>
+    <button mat-raised-button class="normal-difficulty" [color]="difficulty === 1 ? 'primary' : 'accent' " (click)= "difficultyChange(1)"> ふつう</button>
+    <p>かんたん：  時間経過で次の問題に進みます</p>
+    <p>ふつう：  正解するまで次の問題に進みません</p>
+</fieldset>

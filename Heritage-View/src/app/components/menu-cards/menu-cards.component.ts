@@ -6,12 +6,11 @@ export interface card {
 }
 
 @Component({
-  selector: 'app-top',
-  templateUrl: './top.component.html',
-  styleUrls: ['./top.component.scss']
+  selector: 'app-menu-cards',
+  templateUrl: './menu-cards.component.html',
+  styleUrls: ['./menu-cards.component.scss']
 })
-
-export class TopComponent implements OnInit {
+export class MenuCardsComponent implements OnInit {
 
   cards: card[] = [
     {title: '全世界', src: '/assets/cardImages/全般.jpeg'},
@@ -22,8 +21,10 @@ export class TopComponent implements OnInit {
     {title: '南アメリカ/オセアニア', src: '/assets/cardImages/南アメリカ.jpeg'},
   ]
 
+
   constructor() { }
 
   ngOnInit(): void {
   }
+
 }

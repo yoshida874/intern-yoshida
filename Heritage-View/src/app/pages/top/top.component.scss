@@ -15,10 +15,6 @@
             width: 10rem;
             height: 3rem;
         }
-    
-        .normal-difficulty {
-            margin-left: 1rem;
-        }
     }
 
     .margin-left {
@@ -32,25 +28,5 @@
 
     .explanatory {
         font-size: 1.3em;
-    }
-
-    .card {
-        width: 22rem;
-
-        .image-trim {
-            position: relative;
-            overflow: hidden;
-            padding-top: 90%; /* 比率 */
-            
-          }
-          .image-trim img {
-            position: absolute;
-            top: 50%;
-            left: 55%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
     }
 }
