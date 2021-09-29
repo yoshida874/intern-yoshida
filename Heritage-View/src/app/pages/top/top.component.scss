@@ -1,0 +1,32 @@
+.content{
+    height: 100vh;
+    width: 100wh;
+    margin: 0 5% 0;
+
+    .top-container {
+        margin-top: 5vh;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+
+        .how-to-play {
+            margin-right: 6rem;
+            width: 10rem;
+            height: 3rem;
+        }
+    }
+
+    .margin-left {
+        margin-left:  3rem;
+    }
+
+
+    .mat-card-actions {
+        text-align: center;
+    }
+
+    .explanatory {
+        font-size: 1.3em;
+    }
+}
