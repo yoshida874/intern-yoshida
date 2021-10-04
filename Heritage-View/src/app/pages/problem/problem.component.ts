@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProblemComponent implements OnInit {
 
+  ansButtonText = '解答';
+  tipsButtonText = 'ヒント▼';
   constructor() { }
 
   ngOnInit(): void {

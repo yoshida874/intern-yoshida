@@ -13,6 +13,7 @@ export interface card {
 
 export class TopComponent implements OnInit {
 
+  explanationButtonText = '遊び方';
   cards: card[] = [
     {title: '全世界', src: '/assets/cardImages/全般.jpeg'},
     {title: 'アジア', src: '/assets/cardImages/アジア.jpeg'},
