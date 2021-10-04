@@ -16,6 +16,9 @@ import { TopComponent } from './pages/top/top.component';
 import { MenuCardsComponent } from './components/menu-cards/menu-cards.component';
 import { DifficultySetComponent } from './components/difficulty-set/difficulty-set.component';
 import { ProblemComponent } from './pages/problem/problem.component';
+import { LimitTimeComponent } from './components/limit-time/limit-time.component';
+import { RoundComponent } from './components/round/round.component';
+import { PrimaryButtonComponent } from './components/primary-button/primary-button.component';
 
 
 @NgModule({
@@ -25,6 +28,9 @@ import { ProblemComponent } from './pages/problem/problem.component';
     MenuCardsComponent,
     DifficultySetComponent,
     ProblemComponent,
+    LimitTimeComponent,
+    RoundComponent,
+    PrimaryButtonComponent,
   ],
   imports: [
     BrowserModule,
