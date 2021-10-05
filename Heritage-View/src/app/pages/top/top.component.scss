@@ -1,9 +1,9 @@
-.content{
+.container{
     height: 100vh;
     width: 100wh;
     margin: 0 5% 0;
 
-    .top-container {
+    .content {
         margin-top: 5vh;
         display: flex;
         justify-content: space-between;
@@ -19,12 +19,29 @@
         margin-left:  3rem;
     }
 
-
-    .mat-card-actions {
-        text-align: center;
-    }
-
     .explanatory {
         font-size: 1.3em;
+    }
+
+    .menu-card-content {
+        display: flex;
+        flex-wrap: wrap;
+
+        .wrap {
+            padding: 10px;
+            width: calc((100% - 30px * 2) / 3);
+        }
+        
+        @media not all and (min-width: 960px) {
+            .wrap {
+                width: calc((100% - 30px * 2) / 2)
+            }
+        }
+        
+        @media not all and (min-width: 600px) {
+            .wrap {
+                width: 100%
+            }
+        }
     }
 }

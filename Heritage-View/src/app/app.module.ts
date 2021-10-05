@@ -13,7 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TopComponent } from './pages/top/top.component';
-import { MenuCardsComponent } from './components/menu-cards/menu-cards.component';
+import { MenuCardComponent } from './components/menu-card/menu-card.component';
 import { DifficultySetComponent } from './components/difficulty-set/difficulty-set.component';
 import { ProblemComponent } from './pages/problem/problem.component';
 import { LimitTimeComponent } from './components/limit-time/limit-time.component';
@@ -26,7 +26,7 @@ import { AnswerComponent } from './pages/answer/answer.component';
   declarations: [
     AppComponent,
     TopComponent,
-    MenuCardsComponent,
+    MenuCardComponent,
     DifficultySetComponent,
     ProblemComponent,
     LimitTimeComponent,
