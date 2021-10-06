@@ -1,0 +1,50 @@
+.container {
+    height: 100vh;
+    width: 100wh;
+    margin: 0 5% 0;
+
+    .content {
+        margin-top: 3vh;
+        display: flex;
+        align-self: flex-start;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+    
+    .commentary-content {
+        margin-top: 2vh;
+        display: flex;
+        align-self: flex-start;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 30px;
+
+        .answer-img {
+            height: 20rem;
+            width: 36rem;
+        }
+
+        .commentary {
+            width: 36rem;
+
+            .commentary-heading {
+                font-size: 1.8rem;
+            }
+        }
+
+        .wrap-end {
+            text-align: right;
+            margin-top: 5vh;
+        }
+    }
+
+    .name-text {
+        font-size: 1.4rem;
+    }
+
+    .map {
+        margin-top: 2vh;
+        height: 26rem;
+        width: 100%;
+    }
+}

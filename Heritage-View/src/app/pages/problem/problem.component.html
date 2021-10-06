@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="content">
+
+        <div>
+            <app-limit-time></app-limit-time>
+        </div>
+        <div>
+            <app-round></app-round>
+        </div>
+        <div>
+            ヒント表示まで
+            <div class="wrap-center">
+                5:00
+            </div>
+        </div>
+        
+        <app-primary-button [text]="tipsButtonText" class="content-end"></app-primary-button>
+
+
+    </div>
+
+    <img src="/assets/アユタカ.jpeg" class="street-map"/>
+
+    <div class="content">
+        <div>
+            答え(ひらがな入力)
+            <div>
+                <form>
+                    <mat-form-field appearance="fill">
+                        <input matInput type="text">
+                    </mat-form-field>
+                </form>
+            </div>
+        </div>
+
+        <div>
+            解答ミス: １回
+            <div>
+                hoge
+            </div>
+        </div>
+
+        <div class="content-end">
+            <app-primary-button [text]="ansButtonText"></app-primary-button>
+        </div>
+    </div>
+</div>
