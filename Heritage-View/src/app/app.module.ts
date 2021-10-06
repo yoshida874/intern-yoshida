@@ -20,6 +20,7 @@ import { LimitTimeComponent } from './components/limit-time/limit-time.component
 import { RoundComponent } from './components/round/round.component';
 import { PrimaryButtonComponent } from './components/primary-button/primary-button.component';
 import { AnswerComponent } from './pages/answer/answer.component';
+import { ResultComponent } from './pages/result/result.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { AnswerComponent } from './pages/answer/answer.component';
     RoundComponent,
     PrimaryButtonComponent,
     AnswerComponent,
+    ResultComponent,
   ],
   imports: [
     BrowserModule,
