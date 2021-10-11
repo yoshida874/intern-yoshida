@@ -21,6 +21,7 @@ import { RoundComponent } from './components/round/round.component';
 import { PrimaryButtonComponent } from './components/primary-button/primary-button.component';
 import { AnswerComponent } from './pages/answer/answer.component';
 import { ResultComponent } from './pages/result/result.component';
+import { ExplanationComponent } from './pages/explanation/explanation.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { ResultComponent } from './pages/result/result.component';
     PrimaryButtonComponent,
     AnswerComponent,
     ResultComponent,
+    ExplanationComponent,
   ],
   imports: [
     BrowserModule,
