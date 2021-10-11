@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="content">
+        <img src="/assets/アユタカ.jpeg" class="map"/>
+    </div>
+
+    <div class="content">
+        <div class="wrap total-time-text">
+            クリアタイム 0:00:00
+        </div>
+
+        <div class="wrap share-text">
+            ツイートして結果を共有しよう!!
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="wrap">
+            <div *ngFor="let result of roundResults let i = index">
+                <span class="resultItem">ラウンド{{i + 1}}</span>
+                <span class="resultItem">解答ミス {{result.missCount}}回</span>
+                <span class="resultItem">{{result.clearTime}}</span>
+            </div>
+        </div>
+
+        <div class="wrap buttons-molecules">
+
+            <button mat-raised-button class="twitterButton">
+                <img src="/assets/twitter.png" class="twitterIcon">
+                ツイートする
+            </button>
+
+            <div class="back-button">
+                <app-primary-button [text]="backHomeButton"></app-primary-button>
+            </div>
+
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,54 @@
+.container{
+    height: 100vh;
+    width: 100wh;
+    margin: 0 5% 0;
+
+    .content {
+        margin-top: 3vh;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+
+        .total-time-text {
+            font-size: 28px;
+        }
+
+        .share-text {
+            font-size: 22px;
+            padding-right: 2rem;
+        }
+
+        .resultItem {
+            font-size: 18px;
+            margin-right: 1rem;
+        }
+
+        .map {
+            height: 28rem;
+            width: 100%;
+        }
+
+        .buttons-molecules {
+            padding-right: 2rem;
+        }
+
+        .twitterButton {
+            background-color: #1DA1F2;
+            color: white;
+            height: 3.5rem;
+            width: 18rem;
+            font-size: 20px;
+        }
+
+        .twitterIcon {
+            height: 30px;
+            width: 40px;
+            padding-right: 10px;
+        }
+
+        .back-button {
+            margin-top: 3vh;
+            text-align: right;
+        }
+    }
+}
