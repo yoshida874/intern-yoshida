@@ -1,6 +1,6 @@
 <div class="container">
     <div class="content">
-        
+
         <div>
             <app-limit-time></app-limit-time>
         </div>
@@ -13,7 +13,7 @@
 
     <div class="content name-text">
         <div>
-            古都アユタカ
+            {{heritage.name}}
             <div>
                 (アユタカ歴史公園)
             </div>
@@ -29,9 +29,9 @@
             <div>
                 <fieldset class="commentary">
                     <legend class="commentary-heading">解説</legend>
-                    <p>・1991年に世界遺産に登録</p>
-                    <p>・14世紀に栄えたアユタヤ王朝の遺跡</p>
-                    <p>・ワット・プラ・シーサンペット、ワット・マハータートが有名</p>
+                    <p *ngFor="let commentary of heritage.Commentary">
+                      ・{{commentary}}
+                    </p>
                 </fieldset>
             </div>
 
