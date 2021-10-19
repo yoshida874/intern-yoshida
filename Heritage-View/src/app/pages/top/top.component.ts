@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 export interface card {
   title: string;
-  src: string;
+  imageSrc: string;
+  link: string;
 }
 
 @Component({
@@ -14,13 +15,14 @@ export interface card {
 export class TopComponent implements OnInit {
 
   explanationButtonText = '遊び方';
+
   cards: card[] = [
-    {title: '全世界', src: '/assets/cardImages/全般.jpeg'},
-    {title: 'アジア', src: '/assets/cardImages/アジア.jpeg'},
-    {title: 'ヨーロッパ', src: '/assets/cardImages/ヨーロッパ.jpeg'},
-    {title: 'アメリカ', src: '/assets/cardImages/アメリカ.jpeg'},
-    {title: 'アフリカ', src: '/assets/cardImages/アフリカ.jpeg'},
-    {title: '南アメリカ/オセアニア', src: '/assets/cardImages/南アメリカ.jpeg'},
+    { title: '全世界', imageSrc: '/assets/cardImages/全般.jpeg', link: "/problem" },
+    { title: 'アジア', imageSrc: '/assets/cardImages/アジア.jpeg', link: "/problem" },
+    { title: 'ヨーロッパ', imageSrc: '/assets/cardImages/ヨーロッパ.jpeg', link: "/problem" },
+    { title: 'アメリカ', imageSrc: '/assets/cardImages/アメリカ.jpeg', link: "/problem" },
+    { title: 'アフリカ', imageSrc: '/assets/cardImages/アフリカ.jpeg', link: "/problem" },
+    { title: '南アメリカ/オセアニア', imageSrc: '/assets/cardImages/南アメリカ.jpeg', link: "/problem" },
   ]
 
   constructor() { }
