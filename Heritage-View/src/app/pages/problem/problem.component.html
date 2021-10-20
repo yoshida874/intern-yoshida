@@ -10,12 +10,16 @@
         <div class="hint-wrap">
             ヒント表示まで
             <div class="hint-timer">
-                <!-- {{ hintTimerStr | async | date:'mm:ss' }} -->
                 {{ hintTimer.toDate() | date:'mm:ss' }}
             </div>
         </div>
 
-        <app-primary-button [text]="tipsButtonText" class="content-end"></app-primary-button>
+        <div class="wrap-end">
+            <app-primary-button [text]="tipsButtonText" (click)="openHint()" [disabled]="hintButtonDisabled"></app-primary-button>
+            <div *ngIf="isVisibleHint">
+                ・ヒントだよ
+            </div>
+        </div>
 
     </div>
 
@@ -40,7 +44,7 @@
             </div>
         </div>
 
-        <div class="content-end">
+        <div class="wrap-end">
             <a routerLink="/answer"><app-primary-button [text]="ansButtonText"></app-primary-button></a>
         </div>
     </div>

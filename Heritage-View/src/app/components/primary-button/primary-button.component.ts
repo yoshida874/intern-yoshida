@@ -7,7 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PrimaryButtonComponent implements OnInit {
   @Input() text = '';
-  @Input() link = '/top';
+  @Input() disabled: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
