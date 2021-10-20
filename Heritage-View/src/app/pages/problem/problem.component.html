@@ -2,7 +2,7 @@
     <div class="content">
 
         <div>
-            <app-limit-time></app-limit-time>
+            <app-limit-time [time]="roundTimerStr | async | date:'mm:ss'"></app-limit-time>
         </div>
         <div>
             <app-round></app-round>
@@ -10,7 +10,7 @@
         <div class="hint-wrap">
             ヒント表示まで
             <div class="hint-timer">
-                5:00
+                {{ hintTimerStr | async | date:'mm:ss' }}
             </div>
         </div>
 
