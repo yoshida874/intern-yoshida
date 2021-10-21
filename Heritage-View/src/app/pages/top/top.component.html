@@ -2,16 +2,18 @@
     <div class="content">
             <app-difficulty-set class="margin-left"></app-difficulty-set>
 
-            <app-primary-button [text]="explanationButtonText" class="explanation-button"></app-primary-button>
+            <a routerLink="/explanation">
+                <app-primary-button [text]="explanationButtonText" class="explanation-button"></app-primary-button>
+            </a>
     </div>
     
     <p class="margin-left explanatory">選択された地域の世界遺産が計５問出題されます</p>
 
     <div class="menu-card-content">
         <div class="wrap" *ngFor="let card of cards">
-            <button mat-button>
+            <a routerLink="{{card.link}}"><button mat-button>
                 <app-menu-card [card]=card></app-menu-card>
-            </button>
+            </button></a>
         </div>
     </div>
 </div>

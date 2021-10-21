@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 export interface card {
   title: string;
-  src: string;
+  imageSrc: string;
 }
 
 @Component({
@@ -12,7 +12,7 @@ export interface card {
 })
 export class MenuCardComponent implements OnInit {
 
-  @Input() card: card = {title: 'hoge', src: 'huga'};
+  @Input() card: card = {title: 'hoge', imageSrc: 'huga'};
 
   constructor() { }
 
