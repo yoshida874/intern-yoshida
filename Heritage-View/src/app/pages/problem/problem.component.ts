@@ -28,8 +28,6 @@ export class ProblemComponent implements OnInit {
         // ヒントのタイマーが０の時ヒントボタンを有効化
         if(this.hintTimer.format('mm:ss') === '00:00') this.hintButtonDisabled = false;
       }
-
-      else this.hintButtonDisabled = false;
       this.roundTimer = dayjs(this.roundTimer).add(1, 's');
     });
   }
