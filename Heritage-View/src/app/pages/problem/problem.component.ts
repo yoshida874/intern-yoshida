@@ -15,7 +15,7 @@ export class ProblemComponent implements OnInit {
   hintButtonDisabled = true;
 
   roundTimer = dayjs().minute(0).second(0);
-  hintTimer = dayjs().minute(0).second(5);
+  hintTimer = dayjs().minute(0).second(7);
   timer$ = timer(1000, 1000);
 
   constructor() {}

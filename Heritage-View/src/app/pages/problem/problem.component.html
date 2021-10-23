@@ -15,12 +15,14 @@
         </div>
 
         <div class="wrap-end">
-            <app-primary-button [text]="tipsButtonText" (click)="openHint()" [disabled]="hintButtonDisabled"></app-primary-button>
-            <div *ngIf="isVisibleHint">
-                ・ヒントだよ
-            </div>
+            <app-primary-button [text]="tipsButtonText" (onClick)="openHint()" [disabled]="hintButtonDisabled"></app-primary-button>
         </div>
 
+    </div>
+
+    <div *ngIf="isVisibleHint">
+        ・ヒントだよよよよよよよよよよよよよよっよよよよよよよよよっっよよ<br>
+        ・ヒントだよーーーーーーーーーーーーーーーーーー
     </div>
 
     <img src="/assets/アユタカ.jpeg" class="street-map"/>
