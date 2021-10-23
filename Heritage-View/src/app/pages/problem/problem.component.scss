@@ -6,7 +6,6 @@
     .content {
         margin-top: 3vh;
         display: flex;
-        justify-content: center;
         align-self: flex-start;
         flex-wrap: wrap;
         gap: 30px;
@@ -14,6 +13,10 @@
         .hint-timer {
             font-size: 24px;
             text-align: center;
+        }
+
+        .wrap-end {
+            margin-left: auto;
         }
     }
 
@@ -23,7 +26,4 @@
         width: 100%;
     }
 
-    .content-end {
-        margin-left: auto;
-    }
 }

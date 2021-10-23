@@ -2,7 +2,7 @@
     <div class="content">
 
         <div>
-            <app-limit-time></app-limit-time>
+            <app-limit-time [time]="roundTimer.toDate()| date:'mm:ss'"></app-limit-time>
         </div>
         <div>
             <app-round></app-round>
@@ -10,12 +10,19 @@
         <div class="hint-wrap">
             ヒント表示まで
             <div class="hint-timer">
-                5:00
+                {{ hintTimer.toDate() | date:'mm:ss' }}
             </div>
         </div>
 
-        <app-primary-button [text]="tipsButtonText" class="content-end"></app-primary-button>
+        <div>
+            <app-primary-button [text]="tipsButtonText" (onClick)="openHint()" [disabled]="hintButtonDisabled"></app-primary-button>
+        </div>
 
+    </div>
+
+    <div *ngIf="isVisibleHint">
+        ・ヒントだよよよよよよよよよよよよよよっよよよよよよよよよっっよよ<br>
+        ・ヒントだよーーーーーーーーーーーーーーーーーー
     </div>
 
     <img src="/assets/アユタカ.jpeg" class="street-map"/>
@@ -39,7 +46,7 @@
             </div>
         </div>
 
-        <div class="content-end">
+        <div class="wrap-end">
             <a routerLink="/answer"><app-primary-button [text]="ansButtonText"></app-primary-button></a>
         </div>
     </div>

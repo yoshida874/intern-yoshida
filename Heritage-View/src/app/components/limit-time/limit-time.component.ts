@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-limit-time',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./limit-time.component.scss']
 })
 export class LimitTimeComponent implements OnInit {
+
+  @Input() time: string | null = '';
 
   constructor() { }
 
