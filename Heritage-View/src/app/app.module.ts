@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { GoogleMapsModule } from "@angular/google-maps";
 // material
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -42,6 +43,7 @@ import { ExplanationComponent } from './pages/explanation/explanation.component'
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    GoogleMapsModule,
     // material
     MatButtonModule,
     MatToolbarModule,

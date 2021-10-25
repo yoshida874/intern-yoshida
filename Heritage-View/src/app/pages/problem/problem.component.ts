@@ -7,6 +7,7 @@ import * as dayjs from 'dayjs';
   templateUrl: './problem.component.html',
   styleUrls: ['./problem.component.scss']
 })
+
 export class ProblemComponent implements OnInit {
 
   ansButtonText = '解答';
@@ -30,6 +31,22 @@ export class ProblemComponent implements OnInit {
       }
       this.roundTimer = dayjs(this.roundTimer).add(1, 's');
     });
+  }
+
+  ngAfterViewInit(): void {
+    const option = {
+      addressControl: false,
+      showRoadLabels: false,
+      position: {
+        lat: 42.345573,
+        lng: -71.098326
+      },
+      pov: {
+        heading: 34,
+        pitch: 10,
+      }
+    }
+    new google.maps.StreetViewPanorama(document.getElementById('pano') as Element, option);
   }
 
   openHint(): void {
