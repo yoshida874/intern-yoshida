@@ -6,7 +6,6 @@
     .content {
         margin-top: 3vh;
         display: flex;
-        justify-content: center;
         align-self: flex-start;
         flex-wrap: wrap;
         gap: 30px;
@@ -15,15 +14,15 @@
             font-size: 24px;
             text-align: center;
         }
+
+        .wrap-end {
+            margin-left: auto;
+        }
     }
 
     .street-map {
         margin-top: 2vh;
         height: 30rem;
         width: 100%;
-    }
-
-    .content-end {
-        margin-left: auto;
     }
 }
