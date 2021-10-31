@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { timer } from 'rxjs';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import * as dayjs from 'dayjs';
+
+interface Heritage {
+  latitude: number,
+  longitude: number,
+  hint: string[],
+  name: string,
+}
 
 @Component({
   selector: 'app-problem',
@@ -18,10 +26,22 @@ export class ProblemComponent implements OnInit {
   roundTimer = dayjs().minute(0).second(0);
   hintTimer = dayjs().minute(0).second(7);
 
-  constructor() {}
+  heritage: AngularFirestoreCollection<Heritage>;
+  latitude: number = 0;
+  longitude: number = 0;
+  hints: string[] = [];
+
+  constructor(firestore: AngularFirestore) {
+    this.heritage = firestore.collection<Heritage>('heritage', ref => ref.where('name', '==', '古都アユタヤ'));
+  }
 
   ngOnInit(): void {
-    this.streetViewInit().then(() => this.timerCountInit());
+    this.heritage.valueChanges().subscribe(item => {
+      this.latitude = item[0].latitude;
+      this.longitude = item[0].longitude;
+      this.hints = item[0].hint;
+      this.streetViewInit().then(() => this.timerCountInit());
+    });    
   }
 
   /**
@@ -32,8 +52,8 @@ export class ProblemComponent implements OnInit {
       addressControl: false, // 住所案内を非表示
       showRoadLabels: false, // 道路名を非表示
       position: {
-        lat: 42.345573,
-        lng: -71.098326
+        lat: this.latitude,
+        lng: this.longitude
       },
       pov: {
         heading: 34,
