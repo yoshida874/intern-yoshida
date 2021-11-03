@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "heritage-view": {
+      "hosting": {
+        "Heritage-View": [
+          "heritage-view"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "heritage-view"
+  }
+}

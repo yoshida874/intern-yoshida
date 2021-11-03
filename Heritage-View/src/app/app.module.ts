@@ -9,7 +9,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
-
+// firebase
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 // component
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +26,8 @@ import { PrimaryButtonComponent } from './components/primary-button/primary-butt
 import { AnswerComponent } from './pages/answer/answer.component';
 import { ResultComponent } from './pages/result/result.component';
 import { ExplanationComponent } from './pages/explanation/explanation.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -50,7 +55,11 @@ import { ExplanationComponent } from './pages/explanation/explanation.component'
     MatCardModule,
     MatGridListModule,
     MatRadioModule,
-    MatInputModule
+    MatInputModule,
+    AngularFirestoreModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore()),
   ],
   providers: [],
   bootstrap: [AppComponent]
