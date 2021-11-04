@@ -105,6 +105,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "Heritage-View:build:production",
+            "firebaseProject": "heritage-view",
+            "firebaseHostingSite": "heritage-view"
+          }
         }
       }
     }

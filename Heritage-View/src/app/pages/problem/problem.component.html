@@ -21,8 +21,9 @@
     </div>
 
     <div *ngIf="isVisibleHint">
-        ・ヒントだよよよよよよよよよよよよよよっよよよよよよよよよっっよよ<br>
-        ・ヒントだよーーーーーーーーーーーーーーーーーー
+        <p *ngFor = "let hint of hints">
+            ・{{hint}}
+        </p>
     </div>
 
     <div id="pano" class="street-map"></div>
