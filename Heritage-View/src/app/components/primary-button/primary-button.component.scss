@@ -3,3 +3,22 @@
     height: 3rem;
     font-size: 1rem;
 }
+.primary-button.shake_btn {
+    animation-name: shake;
+    animation-duration: 0.2s;
+    animation-iteration-count: infinite;
+
+    @keyframes shake {
+        from{
+            transform: translateX(-5px);
+        }
+    
+        50%{
+            transform: translateX(10px);
+        }
+        
+        to{
+            transform: translateX(-5px);
+        }
+    }
+}

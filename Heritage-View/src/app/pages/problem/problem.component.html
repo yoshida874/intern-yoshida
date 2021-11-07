@@ -32,23 +32,26 @@
         <div>
             答え(ひらがな入力)
             <div>
-                <form>
-                    <mat-form-field appearance="fill">
-                        <input matInput type="text">
-                    </mat-form-field>
-                </form>
+                <mat-form-field appearance="fill">
+                    <input matInput type="text" [(ngModel)]="inputValue" />              
+                </mat-form-field>
             </div>
         </div>
 
         <div>
-            解答ミス: １回
-            <div>
-                hoge
+            解答ミス: {{wrongAnswers.length}}回
+            <div *ngFor="let wrongAnswers of wrongAnswers.reverse(); let i=index">
+                <p *ngIf="i <= 2">{{wrongAnswers}}</p>
             </div>
         </div>
 
         <div class="wrap-end">
-            <a routerLink="/answer"><app-primary-button [text]="ansButtonText"></app-primary-button></a>
+            <app-primary-button 
+                (onClick)="answerEvent()" 
+                [text]="ansButtonText" 
+                [isWrong]="isWrong"
+                [disabled]="inputValue === ''">
+            </app-primary-button>
         </div>
     </div>
 </div>
