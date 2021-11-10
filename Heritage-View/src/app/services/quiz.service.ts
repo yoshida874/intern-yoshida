@@ -19,6 +19,7 @@ interface Heritage {
 export class QuizService {
   questionCount: number = 0;
   answerCount: number = 0;
+  answers: string[] = [];
   heritage: AngularFirestoreCollection<Heritage>;
 
   constructor(
@@ -26,22 +27,25 @@ export class QuizService {
     private firestore: AngularFirestore,
   ) { 
     this.heritage = this.firestore.collection<Heritage>('heritage', ref => ref.where('name', '==', '古都アユタヤ'));
+    this.heritage.valueChanges().subscribe(item => {
+      this.answers = item[0].answer;
+    });
   }
-
-  // initQuiz(): void {
-  // }
 
   getQuiz(): AngularFirestoreCollection<Heritage> {
     return this.heritage;
   }
 
-  checkAnswer(): void {
-    ++this.answerCount;
-    ++this.questionCount;
+  checkAnswer(inputValue: string): void | boolean {
+    if(this.answers.includes(inputValue)){
+      ++this.answerCount;
+      ++this.questionCount;
+      return true;
+    }
+    else return false;
   }
 
   nextPage(): void {
-    this.checkAnswer();
     if (this.questionCount <= QUIZ_COUNT) {
       this.router.navigateByUrl('/answer');
     } else {
