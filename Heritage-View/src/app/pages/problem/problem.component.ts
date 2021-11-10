@@ -104,7 +104,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
 
       if(this.difficulty === 'easy') {
         this.roundTimer = dayjs(this.roundTimer).subtract(1, 's');
-        if(this.hintTimer.format('mm:ss') === '00:00') this.roundSkip();
+        if(this.roundTimer.format('mm:ss') === '00:00') this.roundSkip();
       }
       else this.roundTimer = dayjs(this.roundTimer).add(1, 's');
     });
