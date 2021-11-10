@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { QuizService } from 'src/app/services/quiz.service';
+import { DifficultyService } from 'src/app/services/difficulty.service';
 
-import { timer } from 'rxjs';
+import { of, Subscription, timer } from 'rxjs';
 import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import * as dayjs from 'dayjs';
 
@@ -13,13 +14,15 @@ interface Heritage {
   name: string,
 }
 
+type Difficulty = 'easy' | 'normal'; 
+
 @Component({
   selector: 'app-problem',
   templateUrl: './problem.component.html',
   styleUrls: ['./problem.component.scss']
 })
 
-export class ProblemComponent implements OnInit {
+export class ProblemComponent implements OnInit, OnDestroy {
 
   ansButtonText: string = '解答';
   tipsButtonText: string = 'ヒント▼';
@@ -29,6 +32,9 @@ export class ProblemComponent implements OnInit {
   wrongAnswers: string[] = [];
   isWrong: boolean = false;
 
+  difficulty: Difficulty = 'normal';
+
+  timerInterval?: Subscription;
   roundTimer = dayjs().minute(0).second(0);
   hintTimer = dayjs().minute(0).second(7);
 
@@ -36,12 +42,14 @@ export class ProblemComponent implements OnInit {
   latitude: number = 0;
   longitude: number = 0;
   hints: string[] = [];
-  answers: string[] = [];
+
 
   constructor(
-      private quizService: QuizService
+      private quizService: QuizService,
+      private difficultyService: DifficultyService
     ) {
     this.heritage = quizService.getQuiz();
+    this.difficulty = difficultyService.getDifficulty();
   }
 
   ngOnInit(): void {
@@ -50,9 +58,15 @@ export class ProblemComponent implements OnInit {
       this.latitude = item[0].latitude;
       this.longitude = item[0].longitude;
       this.hints = item[0].hint;
-      this.answers = item[0].answer;
       this.streetViewInit().then(() => this.timerCountInit());
     });    
+  }
+
+  // タイマー処理を削除する
+  ngOnDestroy(): void {
+    if (this.timerInterval){
+      this.timerInterval.unsubscribe();
+    }
   }
 
   /**
@@ -78,14 +92,21 @@ export class ProblemComponent implements OnInit {
    * ヒント、タイマーのカウントを１秒ずつ進める
    */
   timerCountInit(): void {
+    if(this.difficulty === 'easy') this.roundTimer = dayjs().minute(0).second(10);
     const timer$ = timer(1000, 1000);
-    timer$.subscribe(() => {
+
+    this.timerInterval = timer$.subscribe(() => {
       if(this.hintTimer.format('mm:ss') !== '00:00'){
         this.hintTimer = dayjs(this.hintTimer).subtract(1, 's');
         // ヒントのタイマーが０の時ヒントボタンを有効化
         if(this.hintTimer.format('mm:ss') === '00:00') this.hintButtonDisabled = false;
       }
-    this.roundTimer = dayjs(this.roundTimer).add(1, 's');
+
+      if(this.difficulty === 'easy') {
+        this.roundTimer = dayjs(this.roundTimer).subtract(1, 's');
+        if(this.roundTimer.format('mm:ss') === '00:00') this.roundSkip();
+      }
+      else this.roundTimer = dayjs(this.roundTimer).add(1, 's');
     });
   }
 
@@ -94,15 +115,19 @@ export class ProblemComponent implements OnInit {
   }
 
   answerEvent(): void {
-    if(this.answers.includes(this.inputValue)) {
-      // 解答数をカウントし画面遷移
+    if(this.quizService.checkAnswer(this.inputValue)){
       this.quizService.nextPage();
-    } else {
+    }
+    else {
       // ボタンを揺らし不正解数を追加
       this.isWrong = true;
       setTimeout(() => (this.isWrong = false), 300);
       this.wrongAnswers.push(this.inputValue);
     }
+  }
+
+  roundSkip(): void {
+    this.quizService.nextPage();
   }
 
 }
