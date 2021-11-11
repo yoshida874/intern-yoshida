@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GoogleMapsModule } from "@angular/google-maps";
+import { FormsModule } from '@angular/forms';
 // material
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -49,6 +50,7 @@ import { environment } from '../environments/environment';
     AppRoutingModule,
     BrowserAnimationsModule,
     GoogleMapsModule,
+    FormsModule,
     // material
     MatButtonModule,
     MatToolbarModule,
@@ -56,6 +58,7 @@ import { environment } from '../environments/environment';
     MatGridListModule,
     MatRadioModule,
     MatInputModule,
+    // firebase
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
