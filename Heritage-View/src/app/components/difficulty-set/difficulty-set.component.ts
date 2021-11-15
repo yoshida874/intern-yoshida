@@ -1,6 +1,6 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
-import { DifficultyService } from 'src/app/services/difficulty.service';
+import { DifficultyService } from 'src/app/services/difficulty/difficulty.service';
 
 // 難易度 0: かんたん 1: ふつう
 type Difficulty = 'easy' | 'normal';
@@ -20,7 +20,7 @@ export class DifficultySetComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
+
   difficultyChange(putValue: Difficulty): void {
     this.difficulty = putValue;
     this.difficultyService.setDifficulty(this.difficulty);

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Heritage } from '../types/heritage';
+import { Heritage } from '../../types/heritage';
 
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 

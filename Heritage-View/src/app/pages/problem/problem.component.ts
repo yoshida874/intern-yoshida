@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { QuizService } from 'src/app/services/quiz.service';
-import { DifficultyService } from 'src/app/services/difficulty.service';
+import { QuizService } from 'src/app/services/quiz/quiz.service';
+import { DifficultyService } from 'src/app/services/difficulty/difficulty.service';
 
 import { Heritage } from 'src/app/types/heritage';
 import { Subscription, timer } from 'rxjs';
