@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Heritage } from 'src/app/types/heritage';
 
-export interface heritage {
-  name: string
-  Commentary: string[]
-}
+import { QuizService } from 'src/app/services/quiz.service';
 
 @Component({
   selector: 'app-answer',
@@ -11,18 +9,24 @@ export interface heritage {
   styleUrls: ['./answer.component.scss']
 })
 export class AnswerComponent implements OnInit {
-  nextButtonText = '次の問題へ';
-  heritage: heritage = {
-    name: '古都アユタカ',
-    Commentary: [
-      '1991年に世界遺産に登録',
-      '14世紀に栄えたアユタヤ王朝の遺跡',
-      'ワット・プラ・シーサンペット、ワット・マハータートが有名'
-    ]
-  };
+  heritage!: Heritage;
 
-  constructor() { }
+  constructor(
+    private quizService: QuizService,
+  ) {
+    this.heritage = quizService.getQuiz();
+  }
   ngOnInit(): void {
+      this.googleMapInit();
+  }
+
+  async googleMapInit(): Promise<void> {
+    const position = new google.maps.LatLng(this.heritage.latitude, this.heritage.longitude);
+    const map = await new google.maps.Map(document.getElementById('map') as Element, {
+      center: position,
+      zoom: 16
+    });
+    await new google.maps.Marker({map: map, position: position});
   }
 
 }

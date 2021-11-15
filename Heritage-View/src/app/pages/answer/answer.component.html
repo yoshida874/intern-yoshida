@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <img src="/assets/アユタカマップ.png" class="map"/>
+    <div id="map" class="map"></div>
 
     <div class="content name-text">
         <div>
@@ -29,14 +29,14 @@
             <div>
                 <fieldset class="commentary">
                     <legend class="commentary-heading">解説</legend>
-                    <p *ngFor="let commentary of heritage.Commentary">
+                    <p *ngFor="let commentary of heritage.commentary">
                       ・{{commentary}}
                     </p>
                 </fieldset>
             </div>
 
             <div class="wrap-end">
-                <a routerLink="/problem"><app-primary-button [text]="nextButtonText" class="next-button"></app-primary-button></a>
+                <a routerLink="/problem"><app-primary-button [text]="'次の問題へ'" class="next-button"></app-primary-button></a>
             </div>
         </div>
     </div>
