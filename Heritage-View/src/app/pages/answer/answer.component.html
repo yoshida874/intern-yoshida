@@ -18,7 +18,8 @@
 
     <div class="commentary-content">
         <div>
-            <img src="/assets/アユタカ2.jpeg" class="answer-img"/>
+            <!-- <img src="/assets/アユタカ.jpeg" class="answer-img"/> -->
+            <img [src]="profileUrl | async" class="answer-img"/>
         </div>
 
         <div>

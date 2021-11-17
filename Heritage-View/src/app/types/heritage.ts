@@ -4,5 +4,6 @@ export interface Heritage {
   hint: string[],
   answer: string[],
   commentary: string[],
+  imgUrl: string
   name: string,
 };
