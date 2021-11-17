@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Difficulty } from 'src/app/types/difficulty';
 
 @Component({
   selector: 'app-limit-time',
@@ -8,7 +9,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class LimitTimeComponent implements OnInit {
 
   @Input() time: string | null = '';
-  @Input() difficulty: string = 'normal';
+  @Input() difficulty: Difficulty = 'normal';
 
   constructor() { }
 

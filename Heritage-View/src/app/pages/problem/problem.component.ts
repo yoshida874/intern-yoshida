@@ -5,9 +5,7 @@ import { QuizService } from 'src/app/services/quiz/quiz.service';
 import { DifficultyService } from 'src/app/services/difficulty/difficulty.service';
 import { TimerService } from 'src/app/services/timer/timer.service';
 import { Heritage } from 'src/app/types/heritage';
-
-
-type Difficulty = 'easy' | 'normal';
+import { Difficulty } from 'src/app/types/difficulty';
 
 @Component({
   selector: 'app-problem',
@@ -23,7 +21,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
   wrongAnswers: string[] = [];
   isWrong: boolean = false;
 
-  difficulty: Difficulty = 'normal';
+  difficulty: Difficulty;
 
   timerInterval?: Subscription;
   roundTimer: dayjs.Dayjs;

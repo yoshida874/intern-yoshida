@@ -3,6 +3,8 @@ import * as dayjs from 'dayjs';
 import { Heritage } from 'src/app/types/heritage';
 import { QuizService } from 'src/app/services/quiz/quiz.service';
 import { TimerService } from 'src/app/services/timer/timer.service';
+import { DifficultyService } from 'src/app/services/difficulty/difficulty.service';
+import { Difficulty } from 'src/app/types/difficulty';
 
 @Component({
   selector: 'app-answer',
@@ -12,13 +14,16 @@ import { TimerService } from 'src/app/services/timer/timer.service';
 export class AnswerComponent implements OnInit {
   heritage!: Heritage;
   roundTimer: dayjs.Dayjs;
+  difficulty: Difficulty;
 
   constructor(
     private quizService: QuizService,
     private timerService: TimerService,
+    private difficultyService: DifficultyService,
   ) {
     this.heritage = quizService.getQuiz();
     this.roundTimer = this.timerService.getRoundTimer();
+    this.difficulty = this.difficultyService.getDifficulty();
   }
   ngOnInit(): void {
       this.googleMapInit();
