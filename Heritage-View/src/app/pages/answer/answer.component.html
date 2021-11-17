@@ -2,7 +2,7 @@
     <div class="content">
 
         <div>
-            <app-limit-time></app-limit-time>
+            <app-limit-time [time]="roundTimer.toDate()| date:'mm:ss'"></app-limit-time>
         </div>
         <div>
             <app-round></app-round>
@@ -12,12 +12,12 @@
     <div id="map" class="map"></div>
 
     <div class="content name-text">
+      <div>
+        {{heritage.name}}
         <div>
-            {{heritage.name}}
-            <div>
-                (アユタカ歴史公園)
-            </div>
+            (アユタカ歴史公園)
         </div>
+    </div>
     </div>
 
     <div class="commentary-content">

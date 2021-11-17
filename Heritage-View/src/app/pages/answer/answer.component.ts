@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import * as dayjs from 'dayjs';
 import { Heritage } from 'src/app/types/heritage';
-
-import { QuizService } from 'src/app/services/quiz.service';
+import { QuizService } from 'src/app/services/quiz/quiz.service';
+import { TimerService } from 'src/app/services/timer/timer.service';
 
 @Component({
   selector: 'app-answer',
@@ -10,11 +11,14 @@ import { QuizService } from 'src/app/services/quiz.service';
 })
 export class AnswerComponent implements OnInit {
   heritage!: Heritage;
+  roundTimer: dayjs.Dayjs;
 
   constructor(
     private quizService: QuizService,
+    private timerService: TimerService,
   ) {
     this.heritage = quizService.getQuiz();
+    this.roundTimer = this.timerService.getRoundTimer();
   }
   ngOnInit(): void {
       this.googleMapInit();
