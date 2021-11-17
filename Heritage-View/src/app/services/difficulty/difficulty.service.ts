@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-
-type Difficulty = 'easy' | 'normal'; 
+import { Difficulty } from 'src/app/types/difficulty';
 
 @Injectable({
   providedIn: 'root'
