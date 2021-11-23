@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Heritage } from 'src/app/types/heritage';
 import { QuizService } from 'src/app/services/quiz/quiz.service';
 import { TimerService } from 'src/app/services/timer/timer.service';
@@ -15,15 +16,19 @@ export class AnswerComponent implements OnInit {
   heritage!: Heritage;
   roundTimer: dayjs.Dayjs;
   difficulty: Difficulty;
+  profileUrl: any;
 
   constructor(
     private quizService: QuizService,
     private timerService: TimerService,
     private difficultyService: DifficultyService,
+    private storage: AngularFireStorage,
   ) {
     this.heritage = quizService.getQuiz();
     this.roundTimer = this.timerService.getRoundTimer();
     this.difficulty = this.difficultyService.getDifficulty();
+    const ref = storage.refFromURL(this.heritage.imgUrl);
+    this.profileUrl = ref.getDownloadURL();
   }
   ngOnInit(): void {
       this.googleMapInit();

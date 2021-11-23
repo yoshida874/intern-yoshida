@@ -14,6 +14,9 @@ import { MatInputModule } from '@angular/material/input';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { provideStorage,getStorage } from '@angular/fire/storage';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+
 // component
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +32,6 @@ import { ResultComponent } from './pages/result/result.component';
 import { ExplanationComponent } from './pages/explanation/explanation.component';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
-
 
 @NgModule({
   declarations: [
@@ -59,10 +61,12 @@ import { environment } from '../environments/environment';
     MatRadioModule,
     MatInputModule,
     // firebase
+    AngularFireStorageModule,
     AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
+    provideStorage(() => getStorage()),
   ],
   providers: [],
   bootstrap: [AppComponent]
