@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as dayjs from 'dayjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Heritage } from 'src/app/types/heritage';
@@ -10,37 +11,49 @@ import { Difficulty } from 'src/app/types/difficulty';
 @Component({
   selector: 'app-answer',
   templateUrl: './answer.component.html',
-  styleUrls: ['./answer.component.scss']
+  styleUrls: ['./answer.component.scss'],
 })
 export class AnswerComponent implements OnInit {
   heritage!: Heritage;
   roundTimer: dayjs.Dayjs;
   difficulty: Difficulty;
-  profileUrl: any;
+  imgUrl: any;
 
   constructor(
     private quizService: QuizService,
     private timerService: TimerService,
     private difficultyService: DifficultyService,
     private storage: AngularFireStorage,
+    private router: Router
   ) {
     this.heritage = quizService.getQuiz();
     this.roundTimer = this.timerService.getRoundTimer();
     this.difficulty = this.difficultyService.getDifficulty();
     const ref = storage.refFromURL(this.heritage.imgUrl);
-    this.profileUrl = ref.getDownloadURL();
+    this.imgUrl = ref.getDownloadURL();
   }
   ngOnInit(): void {
-      this.googleMapInit();
+    this.googleMapInit();
   }
 
   async googleMapInit(): Promise<void> {
-    const position = new google.maps.LatLng(this.heritage.latitude, this.heritage.longitude);
-    const map = await new google.maps.Map(document.getElementById('map') as Element, {
-      center: position,
-      zoom: 16
-    });
-    await new google.maps.Marker({map: map, position: position});
+    const position = new google.maps.LatLng(
+      this.heritage.latitude,
+      this.heritage.longitude
+    );
+    const map = await new google.maps.Map(
+      document.getElementById('map') as Element,
+      {
+        center: position,
+        zoom: 16,
+      }
+    );
+    await new google.maps.Marker({ map: map, position: position });
   }
 
+  nextQuiz() {
+    this.timerService.timerInit();
+    this.quizService.roundCount();
+    this.router.navigateByUrl('/problem');
+  }
 }

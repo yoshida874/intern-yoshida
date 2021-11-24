@@ -10,9 +10,10 @@ const QUIZ_COUNT = 5;
   providedIn: 'root',
 })
 export class QuizService {
-  questionCount: number = 0;
+  round: number = 0;
+  // 難易度が簡単の時
   answerCount: number = 0;
-  heritage!: Heritage;
+  heritages: Heritage[] = [];
 
   constructor(private router: Router, private firestore: AngularFirestore) {}
 
@@ -23,26 +24,30 @@ export class QuizService {
   }
 
   setQuiz(heritages: Heritage[]) {
-    this.heritage = heritages[0];
+    this.heritages = heritages;
   }
 
   getQuiz(): Heritage {
-    return this.heritage;
+    return this.heritages[this.round];
   }
 
   checkAnswer(inputValue: string): void | boolean {
-    if (this.heritage.answer.includes(inputValue)) {
+    const heritage = this.heritages[this.round];
+    if (heritage.answer.includes(inputValue)) {
       ++this.answerCount;
-      ++this.questionCount;
       return true;
     } else return false;
   }
 
   nextPage(): void {
-    if (this.questionCount <= QUIZ_COUNT) {
+    if (this.round <= QUIZ_COUNT) {
       this.router.navigateByUrl('/answer');
     } else {
       this.router.navigate(['result']);
     }
+  }
+
+  roundCount(): void {
+    ++this.round;
   }
 }

@@ -10,11 +10,9 @@ import { Difficulty } from 'src/app/types/difficulty';
 @Component({
   selector: 'app-problem',
   templateUrl: './problem.component.html',
-  styleUrls: ['./problem.component.scss']
+  styleUrls: ['./problem.component.scss'],
 })
-
 export class ProblemComponent implements OnInit, OnDestroy {
-
   isVisibleHint: boolean = false;
   hintButtonDisabled: boolean = true;
   inputValue: string = '';
@@ -32,30 +30,28 @@ export class ProblemComponent implements OnInit, OnDestroy {
   longitude: number = 0;
   hints: string[] = [];
 
-
   constructor(
-      private quizService: QuizService,
-      private difficultyService: DifficultyService,
-      private timerService: TimerService,
-    ) {
+    private quizService: QuizService,
+    private difficultyService: DifficultyService,
+    private timerService: TimerService
+  ) {
     this.heritage = quizService.getQuiz();
     this.difficulty = difficultyService.getDifficulty();
     this.roundTimer = this.timerService.getRoundTimer(this.difficulty);
     this.hintTimer = this.timerService.getHintTimer();
-
   }
 
   ngOnInit(): void {
     // firestoreのデータをセット
-      this.latitude = this.heritage.latitude;
-      this.longitude = this.heritage.longitude;
-      this.hints = this.heritage.hint;
-      this.streetViewInit().then(() => this.timerCountInit());
+    this.latitude = this.heritage.latitude;
+    this.longitude = this.heritage.longitude;
+    this.hints = this.heritage.hint;
+    this.streetViewInit().then(() => this.timerCountInit());
   }
 
   // タイマー処理を削除する
   ngOnDestroy(): void {
-    if (this.timerInterval){
+    if (this.timerInterval) {
       this.timerInterval.unsubscribe();
     }
   }
@@ -69,14 +65,17 @@ export class ProblemComponent implements OnInit, OnDestroy {
       showRoadLabels: false, // 道路名を非表示
       position: {
         lat: this.latitude,
-        lng: this.longitude
+        lng: this.longitude,
       },
       pov: {
         heading: 34,
         pitch: 10,
-      }
-    }
-    await new google.maps.StreetViewPanorama(document.getElementById('pano') as Element, option);
+      },
+    };
+    await new google.maps.StreetViewPanorama(
+      document.getElementById('pano') as Element,
+      option
+    );
   }
 
   /**
@@ -86,22 +85,24 @@ export class ProblemComponent implements OnInit, OnDestroy {
     const timer$ = timer(1000, 1000);
     this.timerInterval = timer$.subscribe(() => {
       this.roundTimer = this.timerService.roundTimerChange(this.difficulty);
-      if(this.roundTimer.format('mm:ss') === '00:00') this.roundSkip();
+      // roundタイマーが０秒で解答画面に
+      if (this.roundTimer.format('mm:ss') === '00:00') this.roundSkip();
 
       this.hintTimer = this.timerService.hintTimerChange();
-      if(this.hintTimer.format('mm:ss') === '00:00') this.hintButtonDisabled = false;
+      // ヒントタイマーが０秒でヒントを有効に
+      if (this.hintTimer.format('mm:ss') === '00:00')
+        this.hintButtonDisabled = false;
     });
   }
 
   openHint(): void {
-    this.isVisibleHint = this.isVisibleHint ? false : true ;
+    this.isVisibleHint = this.isVisibleHint ? false : true;
   }
 
   answerEvent(): void {
-    if(this.quizService.checkAnswer(this.inputValue)){
+    if (this.quizService.checkAnswer(this.inputValue)) {
       this.quizService.nextPage();
-    }
-    else {
+    } else {
       // ボタンを揺らし不正解数を追加
       this.isWrong = true;
       setTimeout(() => (this.isWrong = false), 300);
@@ -110,7 +111,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
   }
 
   roundSkip(): void {
+    this.timerService.setRoundTimer();
     this.quizService.nextPage();
   }
-
 }

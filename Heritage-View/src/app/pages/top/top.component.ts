@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuizService } from 'src/app/services/quiz/quiz.service';
+import { TimerService } from 'src/app/services/timer/timer.service';
 
 export interface card {
   title: string;
@@ -50,12 +51,17 @@ export class TopComponent implements OnInit {
     },
   ];
 
-  constructor(private router: Router, private quizService: QuizService) {}
+  constructor(
+    private router: Router,
+    private quizService: QuizService,
+    private timerService: TimerService
+  ) {}
 
   ngOnInit(): void {}
 
   quizStart() {
     const items = this.quizService.quizInit();
+    this.timerService.timerInit();
     items.subscribe((value) => {
       this.quizService.setQuiz(value);
       this.router.navigateByUrl('/problem');
