@@ -1,20 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { QuizService } from 'src/app/services/quiz.service';
-import { DifficultyService } from 'src/app/services/difficulty.service';
-
-import { of, Subscription, timer } from 'rxjs';
-import { AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { Subscription, timer } from 'rxjs';
 import * as dayjs from 'dayjs';
-
-interface Heritage {
-  latitude: number,
-  longitude: number,
-  hint: string[],
-  answer: string[],
-  name: string,
-}
-
-type Difficulty = 'easy' | 'normal'; 
+import { QuizService } from 'src/app/services/quiz/quiz.service';
+import { DifficultyService } from 'src/app/services/difficulty/difficulty.service';
+import { TimerService } from 'src/app/services/timer/timer.service';
+import { Heritage } from 'src/app/types/heritage';
+import { Difficulty } from 'src/app/types/difficulty';
 
 @Component({
   selector: 'app-problem',
@@ -24,21 +15,19 @@ type Difficulty = 'easy' | 'normal';
 
 export class ProblemComponent implements OnInit, OnDestroy {
 
-  ansButtonText: string = '解答';
-  tipsButtonText: string = 'ヒント▼';
   isVisibleHint: boolean = false;
   hintButtonDisabled: boolean = true;
   inputValue: string = '';
   wrongAnswers: string[] = [];
   isWrong: boolean = false;
 
-  difficulty: Difficulty = 'normal';
+  difficulty: Difficulty;
 
   timerInterval?: Subscription;
-  roundTimer = dayjs().minute(0).second(0);
-  hintTimer = dayjs().minute(0).second(7);
+  roundTimer: dayjs.Dayjs;
+  hintTimer: dayjs.Dayjs;
 
-  heritage: AngularFirestoreCollection<Heritage>;
+  heritage: Heritage;
   latitude: number = 0;
   longitude: number = 0;
   hints: string[] = [];
@@ -46,20 +35,22 @@ export class ProblemComponent implements OnInit, OnDestroy {
 
   constructor(
       private quizService: QuizService,
-      private difficultyService: DifficultyService
+      private difficultyService: DifficultyService,
+      private timerService: TimerService,
     ) {
     this.heritage = quizService.getQuiz();
     this.difficulty = difficultyService.getDifficulty();
+    this.roundTimer = this.timerService.getRoundTimer(this.difficulty);
+    this.hintTimer = this.timerService.getHintTimer();
+
   }
 
   ngOnInit(): void {
     // firestoreのデータをセット
-    this.heritage.valueChanges().subscribe(item => {
-      this.latitude = item[0].latitude;
-      this.longitude = item[0].longitude;
-      this.hints = item[0].hint;
+      this.latitude = this.heritage.latitude;
+      this.longitude = this.heritage.longitude;
+      this.hints = this.heritage.hint;
       this.streetViewInit().then(() => this.timerCountInit());
-    });    
   }
 
   // タイマー処理を削除する
@@ -92,21 +83,13 @@ export class ProblemComponent implements OnInit, OnDestroy {
    * ヒント、タイマーのカウントを１秒ずつ進める
    */
   timerCountInit(): void {
-    if(this.difficulty === 'easy') this.roundTimer = dayjs().minute(0).second(10);
     const timer$ = timer(1000, 1000);
-
     this.timerInterval = timer$.subscribe(() => {
-      if(this.hintTimer.format('mm:ss') !== '00:00'){
-        this.hintTimer = dayjs(this.hintTimer).subtract(1, 's');
-        // ヒントのタイマーが０の時ヒントボタンを有効化
-        if(this.hintTimer.format('mm:ss') === '00:00') this.hintButtonDisabled = false;
-      }
+      this.roundTimer = this.timerService.roundTimerChange(this.difficulty);
+      if(this.roundTimer.format('mm:ss') === '00:00') this.roundSkip();
 
-      if(this.difficulty === 'easy') {
-        this.roundTimer = dayjs(this.roundTimer).subtract(1, 's');
-        if(this.roundTimer.format('mm:ss') === '00:00') this.roundSkip();
-      }
-      else this.roundTimer = dayjs(this.roundTimer).add(1, 's');
+      this.hintTimer = this.timerService.hintTimerChange();
+      if(this.hintTimer.format('mm:ss') === '00:00') this.hintButtonDisabled = false;
     });
   }
 

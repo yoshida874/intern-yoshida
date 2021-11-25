@@ -1,43 +1,44 @@
 <div class="container">
-    <div class="content">
+  <div class="content">
+    <div class="wrap">
+      <app-limit-time
+        [difficulty]="difficulty"
+        [time]="roundTimer.toDate() | date: 'mm:ss'"
+      >
+      </app-limit-time>
+    </div>
+    <div class="wrap">
+      <app-round></app-round>
+    </div>
+  </div>
 
-        <div>
-            <app-limit-time></app-limit-time>
-        </div>
-        <div>
-            <app-round></app-round>
-        </div>
+  <div id="map" class="map"></div>
+
+  <div class="name-text">
+    {{ heritage.name }}
+  </div>
+
+  <div class="commentary-content">
+    <div class="wrap">
+      <img [src]="profileUrl | async" class="answer-img" />
     </div>
 
-    <img src="/assets/アユタカマップ.png" class="map"/>
+    <div class="wrap">
+      <div>
+        <fieldset class="commentary">
+          <legend class="commentary-heading">解説</legend>
+          <p *ngFor="let commentary of heritage.commentary">
+            ・{{ commentary }}
+          </p>
+        </fieldset>
+      </div>
 
-    <div class="content name-text">
-        <div>
-            {{heritage.name}}
-            <div>
-                (アユタカ歴史公園)
-            </div>
-        </div>
+      <div class="wrap-end">
+        <a routerLink="/problem">
+          <app-primary-button [text]="'次の問題へ'" class="next-button">
+          </app-primary-button>
+        </a>
+      </div>
     </div>
-
-    <div class="commentary-content">
-        <div>
-            <img src="/assets/アユタカ2.jpeg" class="answer-img"/>
-        </div>
-
-        <div>
-            <div>
-                <fieldset class="commentary">
-                    <legend class="commentary-heading">解説</legend>
-                    <p *ngFor="let commentary of heritage.Commentary">
-                      ・{{commentary}}
-                    </p>
-                </fieldset>
-            </div>
-
-            <div class="wrap-end">
-                <a routerLink="/problem"><app-primary-button [text]="nextButtonText" class="next-button"></app-primary-button></a>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>

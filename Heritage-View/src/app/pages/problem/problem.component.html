@@ -15,7 +15,7 @@
         </div>
 
         <div>
-            <app-primary-button [text]="tipsButtonText" (onClick)="openHint()" [disabled]="hintButtonDisabled"></app-primary-button>
+            <app-primary-button [text]="'ヒント▼'" (onClick)="openHint()" [disabled]="hintButtonDisabled"></app-primary-button>
         </div>
 
     </div>
@@ -33,7 +33,7 @@
             答え(ひらがな入力)
             <div>
                 <mat-form-field appearance="fill">
-                    <input matInput type="text" [(ngModel)]="inputValue" />              
+                    <input matInput type="text" [(ngModel)]="inputValue" />
                 </mat-form-field>
             </div>
         </div>
@@ -46,9 +46,9 @@
         </div>
 
         <div class="wrap-end">
-            <app-primary-button 
-                (onClick)="answerEvent()" 
-                [text]="ansButtonText" 
+            <app-primary-button
+                (onClick)="answerEvent()"
+                [text]="'解答'"
                 [isWrong]="isWrong"
                 [disabled]="inputValue === ''">
             </app-primary-button>
