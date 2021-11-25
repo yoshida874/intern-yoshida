@@ -19,6 +19,9 @@ export class AnswerComponent implements OnInit {
   difficulty: Difficulty;
   imgUrl: any;
 
+  nowRound = 0;
+  rounds = 0;
+
   constructor(
     private quizService: QuizService,
     private timerService: TimerService,
@@ -29,6 +32,7 @@ export class AnswerComponent implements OnInit {
     this.heritage = quizService.getQuiz();
     this.roundTimer = this.timerService.getRoundTimer();
     this.difficulty = this.difficultyService.getDifficulty();
+    [this.nowRound, this.rounds] = this.quizService.getRound();
     const ref = storage.refFromURL(this.heritage.imgUrl);
     this.imgUrl = ref.getDownloadURL();
   }
@@ -52,8 +56,7 @@ export class AnswerComponent implements OnInit {
   }
 
   nextQuiz() {
-    this.timerService.timerInit();
     this.quizService.roundCount();
-    this.router.navigateByUrl('/problem');
+    this.quizService.nextPage();
   }
 }

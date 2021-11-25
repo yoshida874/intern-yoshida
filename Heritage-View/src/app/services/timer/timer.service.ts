@@ -8,27 +8,28 @@ import { Subscription, timer } from 'rxjs';
 export class TimerService {
   roundTimer = dayjs().minute(0).second(0);
   hintTimer = dayjs().minute(0).second(7);
-  clearTimes: dayjs.Dayjs[] = [];
+  roundClearTimes: dayjs.Dayjs[] = [];
   timerInterval?: Subscription;
   constructor() {}
 
   timerInit() {
-    this.roundTimer = dayjs().minute(0).second(0);
-    this.hintTimer = dayjs().minute(0).second(7);
+    this.roundClearTimes = [];
   }
 
   // TODO: 難易度の判定をInitで
   getRoundTimer(difficulty?: string): dayjs.Dayjs {
     if (difficulty === 'easy') this.roundTimer = dayjs().minute(0).second(10);
+    else this.roundTimer = dayjs().minute(0).second(0);
     return this.roundTimer;
   }
 
   getHintTimer(): dayjs.Dayjs {
+    this.hintTimer = dayjs().minute(0).second(7);
     return this.hintTimer;
   }
 
   setRoundTimer() {
-    this.clearTimes.push(this.roundTimer);
+    this.roundClearTimes.push(this.roundTimer);
   }
 
   roundTimerChange(difficulty: string): dayjs.Dayjs {

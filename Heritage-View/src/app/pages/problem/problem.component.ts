@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 import * as dayjs from 'dayjs';
 import { QuizService } from 'src/app/services/quiz/quiz.service';
@@ -19,6 +20,8 @@ export class ProblemComponent implements OnInit, OnDestroy {
   wrongAnswers: string[] = [];
   isWrong: boolean = false;
 
+  nowRound = 0;
+  rounds = 0;
   difficulty: Difficulty;
 
   timerInterval?: Subscription;
@@ -33,12 +36,14 @@ export class ProblemComponent implements OnInit, OnDestroy {
   constructor(
     private quizService: QuizService,
     private difficultyService: DifficultyService,
-    private timerService: TimerService
+    private timerService: TimerService,
+    private router: Router
   ) {
     this.heritage = quizService.getQuiz();
     this.difficulty = difficultyService.getDifficulty();
     this.roundTimer = this.timerService.getRoundTimer(this.difficulty);
     this.hintTimer = this.timerService.getHintTimer();
+    [this.nowRound, this.rounds] = this.quizService.getRound();
   }
 
   ngOnInit(): void {
@@ -101,7 +106,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
 
   answerEvent(): void {
     if (this.quizService.checkAnswer(this.inputValue)) {
-      this.quizService.nextPage();
+      this.router.navigateByUrl('/answer');
     } else {
       // ボタンを揺らし不正解数を追加
       this.isWrong = true;
@@ -112,6 +117,6 @@ export class ProblemComponent implements OnInit, OnDestroy {
 
   roundSkip(): void {
     this.timerService.setRoundTimer();
-    this.quizService.nextPage();
+    this.router.navigateByUrl('/answer');
   }
 }

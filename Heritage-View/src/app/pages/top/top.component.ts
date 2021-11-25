@@ -60,11 +60,7 @@ export class TopComponent implements OnInit {
   ngOnInit(): void {}
 
   quizStart() {
-    const items = this.quizService.quizInit();
     this.timerService.timerInit();
-    items.subscribe((value) => {
-      this.quizService.setQuiz(value);
-      this.router.navigateByUrl('/problem');
-    });
+    this.quizService.quizInit();
   }
 }
