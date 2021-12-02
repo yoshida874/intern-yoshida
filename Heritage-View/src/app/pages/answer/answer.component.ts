@@ -40,19 +40,16 @@ export class AnswerComponent implements OnInit {
     this.googleMapInit();
   }
 
-  async googleMapInit(): Promise<void> {
+  googleMapInit(): void {
     const position = new google.maps.LatLng(
       this.heritage.latitude,
       this.heritage.longitude
     );
-    const map = await new google.maps.Map(
-      document.getElementById('map') as Element,
-      {
-        center: position,
-        zoom: 16,
-      }
-    );
-    await new google.maps.Marker({ map: map, position: position });
+    const map = new google.maps.Map(document.getElementById('map') as Element, {
+      center: position,
+      zoom: 16,
+    });
+    new google.maps.Marker({ map: map, position: position });
   }
 
   nextQuiz() {

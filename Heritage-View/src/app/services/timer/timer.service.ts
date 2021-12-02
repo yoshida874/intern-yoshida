@@ -16,7 +16,6 @@ export class TimerService {
     this.roundClearTimes = [];
   }
 
-  // TODO: 難易度の判定をInitで
   getRoundTimer(difficulty?: string): dayjs.Dayjs {
     if (difficulty === 'easy') this.roundTimer = dayjs().minute(0).second(10);
     else this.roundTimer = dayjs().minute(0).second(0);
@@ -32,6 +31,11 @@ export class TimerService {
     this.roundClearTimes.push(this.roundTimer);
   }
 
+  /**
+   * １秒ごとに呼び出される
+   * @param {string} difficulty
+   * @returns roundTimer
+   */
   roundTimerChange(difficulty: string): dayjs.Dayjs {
     if (difficulty === 'easy') {
       this.roundTimer = dayjs(this.roundTimer).subtract(1, 's');

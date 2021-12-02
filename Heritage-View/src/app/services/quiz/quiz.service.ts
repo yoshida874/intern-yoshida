@@ -13,7 +13,6 @@ const QUIZ_COUNT = 2;
 })
 export class QuizService {
   round: number = 1;
-  // 難易度が簡単の時
   answerCount: number = 0;
   heritages: Heritage[] = [];
 
@@ -23,20 +22,21 @@ export class QuizService {
     this.round = 1;
     this.answerCount = 0;
     this.heritages = [];
+    // クイズを取得し問題画面へ
     const heritageCollection = this.firestore.collection<Heritage>('heritage');
     const items = heritageCollection.valueChanges();
     items.subscribe((value) => {
-      this.setQuiz(value);
-      this.router.navigateByUrl('/problem');
+      this.heritages = value;
+      this.router.navigate(['problem']);
     });
-  }
-
-  setQuiz(heritages: Heritage[]) {
-    this.heritages = heritages;
   }
 
   getQuiz(): Heritage {
     return this.heritages[this.round - 1];
+  }
+
+  getAllQuiz(): Heritage[] {
+    return this.heritages;
   }
 
   getRound(): [number, number] {

@@ -61,9 +61,6 @@ export class ProblemComponent implements OnInit, OnDestroy {
     }
   }
 
-  /**
-   * streetViewを配置
-   */
   async streetViewInit(): Promise<void> {
     const option = {
       addressControl: false, // 住所案内を非表示
@@ -78,7 +75,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
       },
     };
     await new google.maps.StreetViewPanorama(
-      document.getElementById('pano') as Element,
+      document.getElementById('streetMap') as Element,
       option
     );
   }
@@ -106,7 +103,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
 
   answerEvent(): void {
     if (this.quizService.checkAnswer(this.inputValue)) {
-      this.router.navigateByUrl('/answer');
+      this.router.navigate(['answer']);
     } else {
       // ボタンを揺らし不正解数を追加
       this.isWrong = true;
@@ -117,6 +114,6 @@ export class ProblemComponent implements OnInit, OnDestroy {
 
   roundSkip(): void {
     this.timerService.setRoundTimer();
-    this.router.navigateByUrl('/answer');
+    this.router.navigate(['answer']);
   }
 }
