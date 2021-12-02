@@ -8,7 +8,7 @@
       </app-limit-time>
     </div>
     <div class="wrap">
-      <app-round></app-round>
+      <app-round [nowRound]="nowRound" [rounds]="rounds"></app-round>
     </div>
   </div>
 
@@ -20,7 +20,7 @@
 
   <div class="commentary-content">
     <div class="wrap">
-      <img [src]="profileUrl | async" class="answer-img" />
+      <img [src]="imgUrl | async" class="answer-img" />
     </div>
 
     <div class="wrap">
@@ -34,10 +34,12 @@
       </div>
 
       <div class="wrap-end">
-        <a routerLink="/problem">
-          <app-primary-button [text]="'次の問題へ'" class="next-button">
-          </app-primary-button>
-        </a>
+        <app-primary-button
+          [text]="'次の問題へ'"
+          class="next-button"
+          (onClick)="nextQuiz()"
+        >
+        </app-primary-button>
       </div>
     </div>
   </div>
