@@ -41,9 +41,11 @@
     </div>
 
     <div>
-      解答ミス: {{ wrongAnswers.length }}回
-      <div *ngFor="let wrongAnswers of wrongAnswers.reverse(); let i = index">
-        <p *ngIf="i <= 2">{{ wrongAnswers }}</p>
+      解答ミス: {{ mistakeAnswers.length }}回
+      <div
+        *ngFor="let mistakeAnswers of mistakeAnswers.reverse(); let i = index"
+      >
+        <p *ngIf="i <= 2">{{ mistakeAnswers }}</p>
       </div>
     </div>
 
@@ -51,7 +53,7 @@
       <app-primary-button
         (onClick)="answerEvent()"
         [text]="'解答'"
-        [isWrong]="isWrong"
+        [isMistake]="isMistake"
         [disabled]="inputValue === ''"
       >
       </app-primary-button>

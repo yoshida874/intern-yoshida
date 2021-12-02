@@ -3,22 +3,20 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 @Component({
   selector: 'app-primary-button',
   templateUrl: './primary-button.component.html',
-  styleUrls: ['./primary-button.component.scss']
+  styleUrls: ['./primary-button.component.scss'],
 })
 export class PrimaryButtonComponent implements OnInit {
   @Input() text = '';
   @Input() disabled: boolean = false;
-  @Input() isWrong: boolean = false;
+  @Input() isMistake: boolean = false;
   @Output() onClick = new EventEmitter();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   pressButton(): void {
     // Event Emmit
     this.onClick.emit();
   }
-
 }
