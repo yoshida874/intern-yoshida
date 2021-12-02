@@ -42,6 +42,7 @@
 
     <div>
       解答ミス: {{ mistakeAnswers.length }}回
+      <!-- 上位３件を出力 -->
       <div
         *ngFor="let mistakeAnswers of mistakeAnswers.reverse(); let i = index"
       >

@@ -17,8 +17,8 @@ export class ProblemComponent implements OnInit, OnDestroy {
   isVisibleHint: boolean = false;
   hintButtonDisabled: boolean = true;
   inputValue: string = '';
-  wrongAnswers: string[] = [];
-  isWrong: boolean = false;
+  mistakeAnswers: string[] = [];
+  isMistake: boolean = false;
 
   nowRound = 0;
   rounds = 0;
@@ -29,8 +29,8 @@ export class ProblemComponent implements OnInit, OnDestroy {
   hintTimer: dayjs.Dayjs;
 
   heritage: Heritage;
-  latitude: number = 0;
-  longitude: number = 0;
+  latitude = 0;
+  longitude = 0;
   hints: string[] = [];
 
   constructor(
@@ -54,13 +54,16 @@ export class ProblemComponent implements OnInit, OnDestroy {
     this.streetViewInit().then(() => this.timerCountInit());
   }
 
-  // タイマー処理を削除する
   ngOnDestroy(): void {
+    // タイマー処理を削除する
     if (this.timerInterval) {
       this.timerInterval.unsubscribe();
     }
   }
 
+  /**
+   * googleStreetViewの配置
+   */
   async streetViewInit(): Promise<void> {
     const option = {
       addressControl: false, // 住所案内を非表示
@@ -103,15 +106,18 @@ export class ProblemComponent implements OnInit, OnDestroy {
 
   answerEvent(): void {
     if (this.quizService.checkAnswer(this.inputValue)) {
-      this.router.navigate(['answer']);
+      this.roundSkip();
     } else {
       // ボタンを揺らし不正解数を追加
-      this.isWrong = true;
-      setTimeout(() => (this.isWrong = false), 300);
-      this.wrongAnswers.push(this.inputValue);
+      this.isMistake = true;
+      setTimeout(() => (this.isMistake = false), 300);
+      this.mistakeAnswers.push(this.inputValue);
     }
   }
 
+  /**
+   * 問題を終了し解答画面へ
+   */
   roundSkip(): void {
     this.timerService.setRoundTimer();
     this.router.navigate(['answer']);
