@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Difficulty } from 'src/app/types/difficulty';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DifficultyService {
   difficulty: Difficulty = 'normal';
-  constructor() { }
+  constructor() {}
 
   getDifficulty(): Difficulty {
     return this.difficulty;
@@ -16,4 +16,11 @@ export class DifficultyService {
     this.difficulty = value;
   }
 
+  // get difficulty(): Difficulty {
+  //   return this.difficulty;
+  // }
+
+  // set difficulty(value: Difficulty) {
+  //   this.difficulty = value;
+  // }
 }

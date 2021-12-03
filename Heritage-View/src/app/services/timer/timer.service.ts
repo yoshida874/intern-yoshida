@@ -16,9 +16,13 @@ export class TimerService {
     this.roundClearTimes = [];
   }
 
+  // fix: answerとproblemのロジックを分ける
   getRoundTimer(difficulty?: string): dayjs.Dayjs {
-    if (difficulty === 'easy') this.roundTimer = dayjs().minute(0).second(10);
-    else this.roundTimer = dayjs().minute(0).second(0);
+    let timeLimitSec = 0;
+    if (difficulty === 'easy') {
+      timeLimitSec = 10;
+    }
+    this.roundTimer = dayjs().minute(0).second(timeLimitSec);
     return this.roundTimer;
   }
 
@@ -27,12 +31,16 @@ export class TimerService {
     return this.hintTimer;
   }
 
+  getRoundClearTimes(): dayjs.Dayjs[] {
+    return this.roundClearTimes;
+  }
+
   setRoundTimer() {
     this.roundClearTimes.push(this.roundTimer);
   }
 
   /**
-   * １秒ごとに呼び出される
+   * １秒ごとに呼び出しラウンドタイマーを変更
    * @param {string} difficulty
    * @returns roundTimer
    */
@@ -43,6 +51,10 @@ export class TimerService {
     return this.roundTimer;
   }
 
+  /**
+   * １秒ごとに呼び出しヒントタイマーを変更
+   * @returns hintTimer
+   */
   hintTimerChange(): dayjs.Dayjs {
     // ヒントのタイマーが０の時ヒントボタンを有効化
     if (this.hintTimer.format('mm:ss') !== '00:00') {

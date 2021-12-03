@@ -29,8 +29,6 @@ export class ProblemComponent implements OnInit, OnDestroy {
   hintTimer: dayjs.Dayjs;
 
   heritage: Heritage;
-  latitude = 0;
-  longitude = 0;
   hints: string[] = [];
 
   constructor(
@@ -40,16 +38,15 @@ export class ProblemComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.heritage = quizService.getQuiz();
-    this.difficulty = difficultyService.getDifficulty();
+    this.difficulty = difficultyService.difficulty;
     this.roundTimer = this.timerService.getRoundTimer(this.difficulty);
     this.hintTimer = this.timerService.getHintTimer();
+    // this.nowRound = this.quizService.round;
     [this.nowRound, this.rounds] = this.quizService.getRound();
   }
 
   ngOnInit(): void {
     // firestoreのデータをセット
-    this.latitude = this.heritage.latitude;
-    this.longitude = this.heritage.longitude;
     this.hints = this.heritage.hint;
     this.streetViewInit().then(() => this.timerCountInit());
   }
@@ -69,8 +66,8 @@ export class ProblemComponent implements OnInit, OnDestroy {
       addressControl: false, // 住所案内を非表示
       showRoadLabels: false, // 道路名を非表示
       position: {
-        lat: this.latitude,
-        lng: this.longitude,
+        lat: this.heritage.latitude,
+        lng: this.heritage.longitude,
       },
       pov: {
         heading: 34,
@@ -101,7 +98,8 @@ export class ProblemComponent implements OnInit, OnDestroy {
   }
 
   openHint(): void {
-    this.isVisibleHint = this.isVisibleHint ? false : true;
+    // this.isVisibleHint = this.isVisibleHint ? false : true;
+    this.isVisibleHint = !this.isVisibleHint;
   }
 
   answerEvent(): void {

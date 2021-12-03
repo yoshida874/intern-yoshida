@@ -16,7 +16,7 @@ export class PrimaryButtonComponent implements OnInit {
   ngOnInit(): void {}
 
   pressButton(): void {
-    // Event Emmit
+    // Event Emit
     this.onClick.emit();
   }
 }

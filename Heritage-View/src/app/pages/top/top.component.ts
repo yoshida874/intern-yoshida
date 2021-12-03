@@ -62,5 +62,6 @@ export class TopComponent implements OnInit {
   quizStart() {
     this.timerService.timerInit();
     this.quizService.quizInit();
+    this.quizService.getHeritagesFromFirebase();
   }
 }
