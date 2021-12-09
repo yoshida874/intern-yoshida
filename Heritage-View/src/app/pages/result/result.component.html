@@ -9,10 +9,12 @@
 
   <div class="content">
     <div class="wrap">
-      <div *ngFor="let result of roundResults; let i = index">
+      <div *ngFor="let clearTime of roundClearTimes; let i = index">
         <span class="resultItem">ラウンド{{ i + 1 }}</span>
-        <span class="resultItem">解答ミス {{ result.missCount }}回</span>
-        <span class="resultItem">{{ result.clearTime }}</span>
+        <span class="resultItem">解答ミス {{ mistakeCounts[i] }}回</span>
+        <span class="resultItem" *ngIf="clearTime.format('mm:ss') !== '00:00'">
+          {{ clearTime.toDate() | date: "mm:ss" }}
+        </span>
       </div>
     </div>
 
