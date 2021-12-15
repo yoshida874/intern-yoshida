@@ -59,7 +59,7 @@ export class QuizService {
       this.answerCount++;
       return true;
     }
-
+    // 解答ミス数を増やす
     if (typeof this.mistakeCounts[index] === 'undefined') {
       this.mistakeCounts[index] = 0;
     }
@@ -68,6 +68,10 @@ export class QuizService {
   }
 
   nextPage(): void {
+    const index = this.round;
+    if (typeof this.mistakeCounts[index] === 'undefined') {
+      this.mistakeCounts[index] = 0;
+    }
     if (this.round < QUIZ_COUNT) {
       this.router.navigate(['problem']);
     } else {
