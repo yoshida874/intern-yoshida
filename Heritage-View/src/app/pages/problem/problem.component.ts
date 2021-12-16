@@ -39,7 +39,8 @@ export class ProblemComponent implements OnInit, OnDestroy {
   ) {
     this.heritage = quizService.getQuiz();
     this.difficulty = difficultyService.difficulty;
-    this.roundTimer = this.timerService.getRoundTimer(this.difficulty);
+    this.timerService.roundTimerInit(this.difficulty);
+    this.roundTimer = this.timerService.getRoundTimer();
     this.hintTimer = this.timerService.getHintTimer();
     // this.nowRound = this.quizService.round;
     [this.nowRound, this.rounds] = this.quizService.getRound();

@@ -12,17 +12,19 @@ export class TimerService {
   timerInterval?: Subscription;
   constructor() {}
 
-  timerInit() {
+  clearTimerInit(): void {
     this.roundClearTimes = [];
   }
 
-  // fix: answerとproblemのロジックを分ける
-  getRoundTimer(difficulty?: string): dayjs.Dayjs {
+  roundTimerInit(difficulty?: string): void {
     let timeLimitSec = 0;
     if (difficulty === 'easy') {
       timeLimitSec = 10;
     }
     this.roundTimer = dayjs().minute(0).second(timeLimitSec);
+  }
+
+  getRoundTimer(): dayjs.Dayjs {
     return this.roundTimer;
   }
 
