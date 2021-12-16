@@ -21,6 +21,7 @@ export class AnswerComponent implements OnInit {
 
   nowRound = 0;
   rounds = 0;
+  nextButtonText = '次の問題へ';
 
   constructor(
     private quizService: QuizService,
@@ -38,6 +39,9 @@ export class AnswerComponent implements OnInit {
   }
   ngOnInit(): void {
     this.googleMapInit();
+    if (this.nowRound === this.rounds) {
+      this.nextButtonText = '結果へ';
+    }
   }
 
   googleMapInit(): void {
