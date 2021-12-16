@@ -52,6 +52,11 @@ export class QuizService {
     return this.mistakeCounts;
   }
 
+  setMistakeCounts(count: number): void {
+    const index = this.round;
+    this.mistakeCounts[index] = count;
+  }
+
   checkAnswer(inputValue: string): void | boolean {
     const index = this.round;
     const heritage = this.heritages[index];
@@ -59,19 +64,11 @@ export class QuizService {
       this.answerCount++;
       return true;
     }
-    // 解答ミス数を増やす
-    if (typeof this.mistakeCounts[index] === 'undefined') {
-      this.mistakeCounts[index] = 0;
-    }
-    this.mistakeCounts[index]++;
     return false;
   }
 
+  // FIXME: answerでしか使用していないので消す
   nextPage(): void {
-    const index = this.round;
-    if (typeof this.mistakeCounts[index] === 'undefined') {
-      this.mistakeCounts[index] = 0;
-    }
     if (this.round < QUIZ_COUNT) {
       this.router.navigate(['problem']);
     } else {

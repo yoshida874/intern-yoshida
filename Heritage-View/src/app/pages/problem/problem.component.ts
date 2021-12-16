@@ -118,6 +118,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
    * 問題を終了し解答画面へ
    */
   roundSkip(): void {
+    this.quizService.setMistakeCounts(this.mistakeAnswers.length);
     this.timerService.setRoundTimer();
     this.router.navigate(['answer']);
   }
