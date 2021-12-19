@@ -60,7 +60,7 @@ export class TopComponent implements OnInit {
   ngOnInit(): void {}
 
   quizStart() {
-    this.timerService.clearTimerInit();
+    this.timerService.initializeClearTimer();
     this.quizService.quizInit();
     this.quizService.getHeritagesFromFirebase();
   }

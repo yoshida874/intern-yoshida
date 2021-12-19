@@ -17,21 +17,12 @@ export interface roundResult {
 export class ResultComponent implements OnInit {
   heritages: Heritage[] = [];
   mistakeCounts: { [key: number]: number } = [];
-  roundClearTimes: dayjs.Dayjs[] = [];
-  roundResults: roundResult[] = [
-    { missCount: 0, clearTime: '0:00:00' },
-    { missCount: 0, clearTime: '0:00:00' },
-    { missCount: 0, clearTime: '0:00:00' },
-    { missCount: 0, clearTime: '0:00:00' },
-    { missCount: 0, clearTime: '0:00:00' },
-  ];
 
   constructor(
     private quizService: QuizService,
-    private timerService: TimerService
+    public timerService: TimerService
   ) {
     this.heritages = quizService.getAllQuiz();
-    this.roundClearTimes = timerService.getRoundClearTimes();
     this.mistakeCounts = quizService.getMistakeCounts();
   }
 

@@ -8,7 +8,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 export class PrimaryButtonComponent implements OnInit {
   @Input() text = '';
   @Input() disabled: boolean = false;
-  @Input() isMistake: boolean = false;
+  @Input() isShake: boolean = false;
   @Output() onClick = new EventEmitter();
 
   constructor() {}

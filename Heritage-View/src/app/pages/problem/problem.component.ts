@@ -16,9 +16,9 @@ import { Difficulty } from 'src/app/types/difficulty';
 export class ProblemComponent implements OnInit, OnDestroy {
   isVisibleHint: boolean = false;
   hintButtonDisabled: boolean = true;
-  inputValue: string = '';
-  mistakeAnswers: string[] = [];
-  isMistake: boolean = false;
+  inputAnswer: string = '';
+  incorrectAnswers: string[] = [];
+  isShakeButton: boolean = false;
 
   nowRound = 0;
   rounds = 0;
@@ -104,13 +104,13 @@ export class ProblemComponent implements OnInit, OnDestroy {
   }
 
   answerEvent(): void {
-    if (this.quizService.checkAnswer(this.inputValue)) {
+    if (this.quizService.checkAnswer(this.inputAnswer)) {
       this.roundSkip();
     } else {
       // ボタンを揺らし不正解数を追加
-      this.isMistake = true;
-      setTimeout(() => (this.isMistake = false), 300);
-      this.mistakeAnswers.push(this.inputValue);
+      this.isShakeButton = true;
+      setTimeout(() => (this.isShakeButton = false), 300);
+      this.incorrectAnswers.push(this.inputAnswer);
     }
   }
 
@@ -118,7 +118,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
    * 問題を終了し解答画面へ
    */
   roundSkip(): void {
-    this.quizService.setMistakeCounts(this.mistakeAnswers.length);
+    this.quizService.setMistakeCounts(this.incorrectAnswers.length);
     this.timerService.setRoundTimer();
     this.router.navigate(['answer']);
   }

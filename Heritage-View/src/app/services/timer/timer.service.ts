@@ -12,7 +12,7 @@ export class TimerService {
   timerInterval?: Subscription;
   constructor() {}
 
-  clearTimerInit(): void {
+  initializeClearTimer(): void {
     this.roundClearTimes = [];
   }
 
