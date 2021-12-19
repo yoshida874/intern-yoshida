@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./round.component.scss'],
 })
 export class RoundComponent implements OnInit {
-  @Input() nowRound = 0;
+  @Input() currentRound = 0;
   @Input() rounds = 0;
   constructor() {}
 

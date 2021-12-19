@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as dayjs from 'dayjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+
 import { Heritage } from 'src/app/types/heritage';
 import { QuizService } from 'src/app/services/quiz/quiz.service';
 import { TimerService } from 'src/app/services/timer/timer.service';
 import { DifficultyService } from 'src/app/services/difficulty/difficulty.service';
 import { Difficulty } from 'src/app/types/difficulty';
+import { QUIZ_COUNT } from 'src/app/const/quiz';
 
 @Component({
   selector: 'app-answer',
@@ -19,8 +21,8 @@ export class AnswerComponent implements OnInit {
   difficulty: Difficulty;
   imgUrl: any;
 
-  nowRound = 0;
-  rounds = 0;
+  round = QUIZ_COUNT;
+  currentRound = 0;
   nextButtonText = '次の問題へ';
 
   constructor(
@@ -33,13 +35,13 @@ export class AnswerComponent implements OnInit {
     this.heritage = quizService.getQuiz();
     this.roundTimer = this.timerService.getRoundTimer();
     this.difficulty = this.difficultyService.getDifficulty();
-    [this.nowRound, this.rounds] = this.quizService.getRound();
+    this.currentRound = this.quizService.round;
     const ref = storage.refFromURL(this.heritage.imgUrl);
     this.imgUrl = ref.getDownloadURL();
   }
   ngOnInit(): void {
     this.googleMapInit();
-    if (this.nowRound === this.rounds) {
+    if (this.currentRound === QUIZ_COUNT) {
       this.nextButtonText = '結果へ';
     }
   }

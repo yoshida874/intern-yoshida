@@ -4,9 +4,8 @@ import { Router } from '@angular/router';
 import * as _ from 'lodash-es'; // https://www.npmjs.com/package/lodash-es
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
-import { Heritage } from '../../types/heritage';
-
-const QUIZ_COUNT = 2;
+import { Heritage } from 'src/app/types/heritage';
+import { QUIZ_COUNT } from 'src/app/const/quiz';
 
 @Injectable({
   providedIn: 'root',
@@ -37,10 +36,6 @@ export class QuizService {
 
   getAllQuiz(): Heritage[] {
     return this.heritages;
-  }
-
-  getRound(): [number, number] {
-    return [this.round, QUIZ_COUNT];
   }
 
   checkAnswer(inputValue: string): void | boolean {

@@ -2,11 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 import * as dayjs from 'dayjs';
+
 import { QuizService } from 'src/app/services/quiz/quiz.service';
 import { DifficultyService } from 'src/app/services/difficulty/difficulty.service';
 import { TimerService } from 'src/app/services/timer/timer.service';
 import { Heritage } from 'src/app/types/heritage';
 import { Difficulty } from 'src/app/types/difficulty';
+import { QUIZ_COUNT } from 'src/app/const/quiz';
 
 @Component({
   selector: 'app-problem',
@@ -20,8 +22,8 @@ export class ProblemComponent implements OnInit, OnDestroy {
   wrongAnswers: string[] = [];
   isWrong: boolean = false;
 
-  nowRound = 0;
-  rounds = 0;
+  currentRound = 0;
+  round = QUIZ_COUNT;
   difficulty: Difficulty;
 
   timerInterval?: Subscription;
@@ -43,7 +45,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
     this.difficulty = difficultyService.getDifficulty();
     this.roundTimer = this.timerService.getRoundTimer(this.difficulty);
     this.hintTimer = this.timerService.getHintTimer();
-    [this.nowRound, this.rounds] = this.quizService.getRound();
+    this.currentRound = this.quizService.round;
   }
 
   ngOnInit(): void {
