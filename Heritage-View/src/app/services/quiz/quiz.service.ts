@@ -12,27 +12,32 @@ const QUIZ_COUNT = 2;
   providedIn: 'root',
 })
 export class QuizService {
-  round: number = 1;
+  round: number = 0;
   answerCount: number = 0;
+  mistakeCounts: { [key: number]: number } = {};
   heritages: Heritage[] = [];
 
   constructor(private router: Router, private firestore: AngularFirestore) {}
 
   quizInit() {
-    this.round = 1;
+    this.round = 0;
     this.answerCount = 0;
     this.heritages = [];
+  }
+
+  getHeritagesFromFirebase() {
     // クイズを取得し問題画面へ
     const heritageCollection = this.firestore.collection<Heritage>('heritage');
     const items = heritageCollection.valueChanges();
     items.subscribe((value) => {
       this.heritages = value;
+      // TODO: 画面遷移をcontroller側で
       this.router.navigate(['problem']);
     });
   }
 
   getQuiz(): Heritage {
-    return this.heritages[this.round - 1];
+    return this.heritages[this.round];
   }
 
   getAllQuiz(): Heritage[] {
@@ -43,16 +48,28 @@ export class QuizService {
     return [this.round, QUIZ_COUNT];
   }
 
-  checkAnswer(inputValue: string): void | boolean {
-    const heritage = this.heritages[this.round - 1];
-    if (heritage.answer.includes(inputValue)) {
-      ++this.answerCount;
-      return true;
-    } else return false;
+  getMistakeCounts(): { [key: number]: number } {
+    return this.mistakeCounts;
   }
 
+  setMistakeCounts(count: number): void {
+    const index = this.round;
+    this.mistakeCounts[index] = count;
+  }
+
+  checkAnswer(inputValue: string): void | boolean {
+    const index = this.round;
+    const heritage = this.heritages[index];
+    if (heritage.answer.includes(inputValue)) {
+      this.answerCount++;
+      return true;
+    }
+    return false;
+  }
+
+  // FIXME: answerでしか使用していないので消す
   nextPage(): void {
-    if (this.round <= QUIZ_COUNT) {
+    if (this.round < QUIZ_COUNT) {
       this.router.navigate(['problem']);
     } else {
       this.router.navigate(['result']);

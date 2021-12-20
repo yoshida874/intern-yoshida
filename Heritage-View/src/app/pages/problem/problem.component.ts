@@ -16,9 +16,9 @@ import { Difficulty } from 'src/app/types/difficulty';
 export class ProblemComponent implements OnInit, OnDestroy {
   isVisibleHint: boolean = false;
   hintButtonDisabled: boolean = true;
-  inputValue: string = '';
-  wrongAnswers: string[] = [];
-  isWrong: boolean = false;
+  inputAnswer: string = '';
+  incorrectAnswers: string[] = [];
+  isShakeButton: boolean = false;
 
   nowRound = 0;
   rounds = 0;
@@ -29,8 +29,6 @@ export class ProblemComponent implements OnInit, OnDestroy {
   hintTimer: dayjs.Dayjs;
 
   heritage: Heritage;
-  latitude: number = 0;
-  longitude: number = 0;
   hints: string[] = [];
 
   constructor(
@@ -40,34 +38,37 @@ export class ProblemComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.heritage = quizService.getQuiz();
-    this.difficulty = difficultyService.getDifficulty();
-    this.roundTimer = this.timerService.getRoundTimer(this.difficulty);
+    this.difficulty = difficultyService.difficulty;
+    this.timerService.roundTimerInit(this.difficulty);
+    this.roundTimer = this.timerService.getRoundTimer();
     this.hintTimer = this.timerService.getHintTimer();
+    // this.nowRound = this.quizService.round;
     [this.nowRound, this.rounds] = this.quizService.getRound();
   }
 
   ngOnInit(): void {
     // firestoreのデータをセット
-    this.latitude = this.heritage.latitude;
-    this.longitude = this.heritage.longitude;
     this.hints = this.heritage.hint;
     this.streetViewInit().then(() => this.timerCountInit());
   }
 
-  // タイマー処理を削除する
   ngOnDestroy(): void {
+    // タイマー処理を削除する
     if (this.timerInterval) {
       this.timerInterval.unsubscribe();
     }
   }
 
+  /**
+   * googleStreetViewの配置
+   */
   async streetViewInit(): Promise<void> {
     const option = {
       addressControl: false, // 住所案内を非表示
       showRoadLabels: false, // 道路名を非表示
       position: {
-        lat: this.latitude,
-        lng: this.longitude,
+        lat: this.heritage.latitude,
+        lng: this.heritage.longitude,
       },
       pov: {
         heading: 34,
@@ -98,21 +99,26 @@ export class ProblemComponent implements OnInit, OnDestroy {
   }
 
   openHint(): void {
-    this.isVisibleHint = this.isVisibleHint ? false : true;
+    // this.isVisibleHint = this.isVisibleHint ? false : true;
+    this.isVisibleHint = !this.isVisibleHint;
   }
 
   answerEvent(): void {
-    if (this.quizService.checkAnswer(this.inputValue)) {
-      this.router.navigate(['answer']);
+    if (this.quizService.checkAnswer(this.inputAnswer)) {
+      this.roundSkip();
     } else {
       // ボタンを揺らし不正解数を追加
-      this.isWrong = true;
-      setTimeout(() => (this.isWrong = false), 300);
-      this.wrongAnswers.push(this.inputValue);
+      this.isShakeButton = true;
+      setTimeout(() => (this.isShakeButton = false), 300);
+      this.incorrectAnswers.push(this.inputAnswer);
     }
   }
 
+  /**
+   * 問題を終了し解答画面へ
+   */
   roundSkip(): void {
+    this.quizService.setMistakeCounts(this.incorrectAnswers.length);
     this.timerService.setRoundTimer();
     this.router.navigate(['answer']);
   }

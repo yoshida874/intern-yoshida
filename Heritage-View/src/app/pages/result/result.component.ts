@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as dayjs from 'dayjs';
 import { QuizService } from 'src/app/services/quiz/quiz.service';
 import { TimerService } from 'src/app/services/timer/timer.service';
 import { Heritage } from 'src/app/types/heritage';
@@ -15,25 +16,23 @@ export interface roundResult {
 })
 export class ResultComponent implements OnInit {
   heritages: Heritage[] = [];
-  roundResults: roundResult[] = [
-    { missCount: 0, clearTime: '0:00:00' },
-    { missCount: 0, clearTime: '0:00:00' },
-    { missCount: 0, clearTime: '0:00:00' },
-    { missCount: 0, clearTime: '0:00:00' },
-    { missCount: 0, clearTime: '0:00:00' },
-  ];
+  mistakeCounts: { [key: number]: number } = [];
 
   constructor(
     private quizService: QuizService,
-    private timerService: TimerService
+    public timerService: TimerService
   ) {
     this.heritages = quizService.getAllQuiz();
+    this.mistakeCounts = quizService.getMistakeCounts();
   }
 
   ngOnInit(): void {
     this.googleMapInit();
   }
 
+  /**
+   * google Mapの配置とピン刺し
+   */
   googleMapInit(): void {
     const center = new google.maps.LatLng(35, 139);
     const map = new google.maps.Map(
@@ -54,7 +53,7 @@ export class ResultComponent implements OnInit {
     };
 
     const label = {
-      text: 'A',
+      text: '',
       color: '#FFFFFF',
       fontSize: '20px',
     };

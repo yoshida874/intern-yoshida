@@ -33,6 +33,7 @@ export class AnswerComponent implements OnInit {
     this.roundTimer = this.timerService.getRoundTimer();
     this.difficulty = this.difficultyService.getDifficulty();
     [this.nowRound, this.rounds] = this.quizService.getRound();
+
     const ref = storage.refFromURL(this.heritage.imgUrl);
     this.imgUrl = ref.getDownloadURL();
   }
