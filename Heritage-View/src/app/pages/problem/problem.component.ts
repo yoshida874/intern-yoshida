@@ -8,7 +8,7 @@ import { DifficultyService } from 'src/app/services/difficulty/difficulty.servic
 import { TimerService } from 'src/app/services/timer/timer.service';
 import { Heritage } from 'src/app/types/heritage';
 import { Difficulty } from 'src/app/types/difficulty';
-import { QUIZ_COUNT } from 'src/app/const/quiz';
+import { QuizConst, QuizConstInterface } from 'src/app/const/quiz';
 
 @Component({
   selector: 'app-problem',
@@ -16,6 +16,7 @@ import { QUIZ_COUNT } from 'src/app/const/quiz';
   styleUrls: ['./problem.component.scss'],
 })
 export class ProblemComponent implements OnInit, OnDestroy {
+  quizConst: QuizConstInterface = QuizConst;
   isVisibleHint: boolean = false;
   hintButtonDisabled: boolean = true;
   inputValue: string = '';
@@ -23,7 +24,6 @@ export class ProblemComponent implements OnInit, OnDestroy {
   isWrong: boolean = false;
 
   currentRound = 0;
-  round = QUIZ_COUNT;
   difficulty: Difficulty;
 
   timerInterval?: Subscription;

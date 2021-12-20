@@ -6,7 +6,10 @@
       ></app-limit-time>
     </div>
     <div>
-      <app-round [currentRound]="currentRound" [rounds]="round"></app-round>
+      <app-round
+        [currentRound]="currentRound"
+        [rounds]="quizConst.QUIZ_COUNT"
+      ></app-round>
     </div>
     <div class="hint-wrap">
       ヒント表示まで

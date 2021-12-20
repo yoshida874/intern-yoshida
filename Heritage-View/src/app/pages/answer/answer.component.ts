@@ -8,7 +8,7 @@ import { QuizService } from 'src/app/services/quiz/quiz.service';
 import { TimerService } from 'src/app/services/timer/timer.service';
 import { DifficultyService } from 'src/app/services/difficulty/difficulty.service';
 import { Difficulty } from 'src/app/types/difficulty';
-import { QUIZ_COUNT } from 'src/app/const/quiz';
+import { QuizConst, QuizConstInterface } from 'src/app/const/quiz';
 
 @Component({
   selector: 'app-answer',
@@ -16,14 +16,15 @@ import { QUIZ_COUNT } from 'src/app/const/quiz';
   styleUrls: ['./answer.component.scss'],
 })
 export class AnswerComponent implements OnInit {
+  quizConst: QuizConstInterface = QuizConst;
   heritage!: Heritage;
   roundTimer: dayjs.Dayjs;
   difficulty: Difficulty;
   imgUrl: any;
 
-  round = QUIZ_COUNT;
   currentRound = 0;
   nextButtonText = '次の問題へ';
+  isLastRound = false;
 
   constructor(
     private quizService: QuizService,
@@ -41,9 +42,7 @@ export class AnswerComponent implements OnInit {
   }
   ngOnInit(): void {
     this.googleMapInit();
-    if (this.currentRound === QUIZ_COUNT) {
-      this.nextButtonText = '結果へ';
-    }
+    this.isLastRound = this.quizService.round === this.quizConst.QUIZ_COUNT;
   }
 
   googleMapInit(): void {

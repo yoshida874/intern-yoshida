@@ -5,7 +5,7 @@ import * as _ from 'lodash-es'; // https://www.npmjs.com/package/lodash-es
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import { Heritage } from 'src/app/types/heritage';
-import { QUIZ_COUNT } from 'src/app/const/quiz';
+import { QuizConst } from 'src/app/const/quiz';
 
 @Injectable({
   providedIn: 'root',
@@ -47,7 +47,7 @@ export class QuizService {
   }
 
   nextPage(): void {
-    if (this.round <= QUIZ_COUNT) {
+    if (this.round <= QuizConst.QUIZ_COUNT) {
       this.router.navigate(['problem']);
     } else {
       this.router.navigate(['result']);
