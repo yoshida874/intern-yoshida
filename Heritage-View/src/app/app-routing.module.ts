@@ -7,16 +7,22 @@ import { ResultComponent } from './pages/result/result.component';
 import { ExplanationComponent } from './pages/explanation/explanation.component';
 
 const routes: Routes = [
-  { path: 'top',  component: TopComponent },
+  { path: 'top', component: TopComponent },
   { path: '', redirectTo: 'top', pathMatch: 'full' },
   { path: 'problem', component: ProblemComponent },
   { path: 'answer', component: AnswerComponent },
   { path: 'result', component: ResultComponent },
-  { path: 'explanation', component: ExplanationComponent }
+  { path: 'explanation', component: ExplanationComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [
+    RouterModule.forRoot(routes, {
+      // 現在のURLに遷移する場合もreloadするよう設定
+      onSameUrlNavigation: 'reload',
+      scrollPositionRestoration: 'top',
+    }),
+  ],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

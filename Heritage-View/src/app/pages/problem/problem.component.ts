@@ -47,9 +47,13 @@ export class ProblemComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // firestoreのデータをセット
-    this.hints = this.heritage.hint;
-    this.streetViewInit().then(() => this.timerCountInit());
+    if (this.quizService.isQuizzing) {
+      // firestoreのデータをセット
+      this.hints = this.heritage.hint;
+      this.streetViewInit().then(() => this.timerCountInit());
+    } else {
+      this.router.navigate(['top']);
+    }
   }
 
   ngOnDestroy(): void {

@@ -33,12 +33,15 @@ export class AnswerComponent implements OnInit {
     this.roundTimer = this.timerService.getRoundTimer();
     this.difficulty = this.difficultyService.getDifficulty();
     [this.nowRound, this.rounds] = this.quizService.getRound();
-
-    const ref = storage.refFromURL(this.heritage.imgUrl);
-    this.imgUrl = ref.getDownloadURL();
   }
   ngOnInit(): void {
-    this.googleMapInit();
+    if (this.quizService.isQuizzing) {
+      const ref = this.storage.refFromURL(this.heritage.imgUrl);
+      this.imgUrl = ref.getDownloadURL();
+      this.googleMapInit();
+    } else {
+      this.router.navigate(['top']);
+    }
   }
 
   googleMapInit(): void {
