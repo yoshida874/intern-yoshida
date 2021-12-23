@@ -18,8 +18,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      // 現在のURLに遷移する場合もreloadするよう設定
-      onSameUrlNavigation: 'reload',
+      // 画面遷移時にスクロールトップへ
       scrollPositionRestoration: 'top',
     }),
   ],
