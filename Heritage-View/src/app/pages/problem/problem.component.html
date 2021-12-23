@@ -38,15 +38,21 @@
       答え(ひらがな入力)
       <div>
         <mat-form-field appearance="fill">
-          <input matInput type="text" [(ngModel)]="inputValue" />
+          <input matInput type="text" [(ngModel)]="inputAnswer" />
         </mat-form-field>
       </div>
     </div>
 
     <div>
-      解答ミス: {{ wrongAnswers.length }}回
-      <div *ngFor="let wrongAnswers of wrongAnswers.reverse(); let i = index">
-        <p *ngIf="i <= 2">{{ wrongAnswers }}</p>
+      解答ミス: {{ incorrectAnswers.length }}回
+      <!-- 上位３件を出力 -->
+      <div
+        *ngFor="
+          let incorrectAnswer of incorrectAnswers.reverse();
+          let i = index
+        "
+      >
+        <p *ngIf="i <= 2">{{ incorrectAnswer }}</p>
       </div>
     </div>
 
@@ -54,8 +60,8 @@
       <app-primary-button
         (onClick)="answerEvent()"
         [text]="'解答'"
-        [isWrong]="isWrong"
-        [disabled]="inputValue === ''"
+        [isShake]="isShakeButton"
+        [disabled]="inputAnswer === ''"
       >
       </app-primary-button>
     </div>
