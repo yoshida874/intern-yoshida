@@ -7,13 +7,14 @@ import { DifficultyService } from 'src/app/services/difficulty/difficulty.servic
 import { TimerService } from 'src/app/services/timer/timer.service';
 import { Heritage } from 'src/app/types/heritage';
 import { Difficulty } from 'src/app/types/difficulty';
+import { OnBeforeunload } from 'src/app/guards/problem.guard';
 
 @Component({
   selector: 'app-problem',
   templateUrl: './problem.component.html',
   styleUrls: ['./problem.component.scss'],
 })
-export class ProblemComponent implements OnInit, OnDestroy {
+export class ProblemComponent implements OnInit, OnDestroy, OnBeforeunload {
   isVisibleHint: boolean = false;
   hintButtonDisabled: boolean = true;
   inputAnswer: string = '';
@@ -30,6 +31,8 @@ export class ProblemComponent implements OnInit, OnDestroy {
 
   heritage: Heritage;
   hints: string[] = [];
+
+  loadWarning = true;
 
   constructor(
     private quizService: QuizService,
@@ -63,6 +66,17 @@ export class ProblemComponent implements OnInit, OnDestroy {
     }
   }
 
+  beforeUnload(e: Event) {
+    if (this.shouldConfirmOnBeforeunload()) {
+      e.returnValue = true;
+    }
+  }
+
+  // アラートの表示を行うか
+  shouldConfirmOnBeforeunload() {
+    return !!this.loadWarning;
+  }
+
   /**
    * googleStreetViewの配置
    */
@@ -79,7 +93,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
         pitch: 10,
       },
     };
-    await new google.maps.StreetViewPanorama(
+    new google.maps.StreetViewPanorama(
       document.getElementById('streetMap') as Element,
       option
     );
@@ -124,6 +138,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
   roundSkip(): void {
     this.quizService.setMistakeCounts(this.incorrectAnswers.length);
     this.timerService.setRoundTimer();
+    this.loadWarning = false;
     this.router.navigate(['answer']);
   }
 }

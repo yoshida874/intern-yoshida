@@ -5,12 +5,17 @@ import { ProblemComponent } from './pages/problem/problem.component';
 import { AnswerComponent } from './pages/answer/answer.component';
 import { ResultComponent } from './pages/result/result.component';
 import { ExplanationComponent } from './pages/explanation/explanation.component';
+import { ProblemGuard } from './guards/problem.guard';
 
 const routes: Routes = [
   { path: 'top', component: TopComponent },
   { path: '', redirectTo: 'top', pathMatch: 'full' },
-  { path: 'problem', component: ProblemComponent },
-  { path: 'answer', component: AnswerComponent },
+  {
+    path: 'problem',
+    component: ProblemComponent,
+    canDeactivate: [ProblemGuard],
+  },
+  { path: 'answer', component: AnswerComponent, canDeactivate: [ProblemGuard] },
   { path: 'result', component: ResultComponent },
   { path: 'explanation', component: ExplanationComponent },
 ];
