@@ -7,16 +7,16 @@ import { ResultComponent } from './pages/result/result.component';
 import { ExplanationComponent } from './pages/explanation/explanation.component';
 
 const routes: Routes = [
-  { path: 'top',  component: TopComponent },
+  { path: 'top', component: TopComponent },
   { path: '', redirectTo: 'top', pathMatch: 'full' },
   { path: 'problem', component: ProblemComponent },
   { path: 'answer', component: AnswerComponent },
   { path: 'result', component: ResultComponent },
-  { path: 'explanation', component: ExplanationComponent }
+  { path: 'explanation', component: ExplanationComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top' })],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
