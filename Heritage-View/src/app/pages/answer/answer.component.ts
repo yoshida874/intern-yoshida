@@ -74,6 +74,7 @@ export class AnswerComponent implements OnInit, OnBeforeunload {
   nextQuiz() {
     this.quizService.isQuizzing = true;
     this.quizService.roundCount();
+    this.loadWarning = false;
     this.quizService.nextPage();
   }
 }
