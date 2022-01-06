@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as dayjs from 'dayjs';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+
 import { Heritage } from 'src/app/types/heritage';
 import { QuizService } from 'src/app/services/quiz/quiz.service';
 import { TimerService } from 'src/app/services/timer/timer.service';
 import { DifficultyService } from 'src/app/services/difficulty/difficulty.service';
 import { Difficulty } from 'src/app/types/difficulty';
+import { QuizConst, QuizConstInterface } from 'src/app/const/quiz';
 
 @Component({
   selector: 'app-answer',
@@ -14,13 +16,15 @@ import { Difficulty } from 'src/app/types/difficulty';
   styleUrls: ['./answer.component.scss'],
 })
 export class AnswerComponent implements OnInit {
+  quizConst: QuizConstInterface = QuizConst;
   heritage!: Heritage;
   roundTimer: dayjs.Dayjs;
   difficulty: Difficulty;
   imgUrl: any;
 
-  nowRound = 0;
-  rounds = 0;
+  currentRound = 0;
+  nextButtonText = '次の問題へ';
+  isLastRound = false;
 
   constructor(
     private quizService: QuizService,
@@ -32,13 +36,13 @@ export class AnswerComponent implements OnInit {
     this.heritage = quizService.getQuiz();
     this.roundTimer = this.timerService.getRoundTimer();
     this.difficulty = this.difficultyService.getDifficulty();
-    [this.nowRound, this.rounds] = this.quizService.getRound();
-
+    this.currentRound = this.quizService.round;
     const ref = storage.refFromURL(this.heritage.imgUrl);
     this.imgUrl = ref.getDownloadURL();
   }
   ngOnInit(): void {
     this.googleMapInit();
+    this.isLastRound = this.quizService.round === this.quizConst.QUIZ_COUNT;
   }
 
   googleMapInit(): void {

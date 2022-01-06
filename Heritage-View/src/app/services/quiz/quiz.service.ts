@@ -4,9 +4,8 @@ import { Router } from '@angular/router';
 import * as _ from 'lodash-es'; // https://www.npmjs.com/package/lodash-es
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
-import { Heritage } from '../../types/heritage';
-
-const QUIZ_COUNT = 2;
+import { Heritage } from 'src/app/types/heritage';
+import { QuizConst } from 'src/app/const/quiz';
 
 @Injectable({
   providedIn: 'root',
@@ -44,9 +43,6 @@ export class QuizService {
     return this.heritages;
   }
 
-  getRound(): [number, number] {
-    return [this.round, QUIZ_COUNT];
-  }
 
   getMistakeCounts(): { [key: number]: number } {
     return this.mistakeCounts;
@@ -69,7 +65,7 @@ export class QuizService {
 
   // FIXME: answerでしか使用していないので消す
   nextPage(): void {
-    if (this.round < QUIZ_COUNT) {
+    if (this.round <= QuizConst.QUIZ_COUNT) {
       this.router.navigate(['problem']);
     } else {
       this.router.navigate(['result']);

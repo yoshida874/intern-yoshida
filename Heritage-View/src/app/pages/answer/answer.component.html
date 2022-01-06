@@ -8,7 +8,7 @@
       </app-limit-time>
     </div>
     <div class="wrap">
-      <app-round [nowRound]="nowRound" [rounds]="rounds"></app-round>
+      <app-round [currentRound]="currentRound"></app-round>
     </div>
   </div>
 
@@ -35,7 +35,7 @@
 
       <div class="wrap-end">
         <app-primary-button
-          [text]="'次の問題へ'"
+          [text]="isLastRound ? '結果へ' : '次の問題へ'"
           class="next-button"
           (onClick)="nextQuiz()"
         >
