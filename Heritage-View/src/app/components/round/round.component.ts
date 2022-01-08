@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { QuizConst, QuizConstInterface } from 'src/app/const/quiz';
 
 @Component({
   selector: 'app-round',
@@ -6,8 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./round.component.scss'],
 })
 export class RoundComponent implements OnInit {
-  @Input() nowRound = 0;
-  @Input() rounds = 0;
+  quizConst: QuizConstInterface = QuizConst;
+  @Input() currentRound = 0;
   constructor() {}
 
   ngOnInit(): void {}

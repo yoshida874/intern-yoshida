@@ -2,18 +2,21 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, timer } from 'rxjs';
 import * as dayjs from 'dayjs';
+
 import { QuizService } from 'src/app/services/quiz/quiz.service';
 import { DifficultyService } from 'src/app/services/difficulty/difficulty.service';
 import { TimerService } from 'src/app/services/timer/timer.service';
 import { Heritage } from 'src/app/types/heritage';
 import { Difficulty } from 'src/app/types/difficulty';
 import { OnBeforeunload } from 'src/app/guards/problem.guard';
+import { QuizConst, QuizConstInterface } from 'src/app/const/quiz';
 
 @Component({
   selector: 'app-problem',
   templateUrl: './problem.component.html',
   styleUrls: ['./problem.component.scss'],
 })
+
 export class ProblemComponent implements OnInit, OnDestroy, OnBeforeunload {
   isVisibleHint: boolean = false;
   hintButtonDisabled: boolean = true;
@@ -21,8 +24,7 @@ export class ProblemComponent implements OnInit, OnDestroy, OnBeforeunload {
   incorrectAnswers: string[] = [];
   isShakeButton: boolean = false;
 
-  nowRound = 0;
-  rounds = 0;
+  currentRound = 0;
   difficulty: Difficulty;
 
   timerInterval?: Subscription;
@@ -45,8 +47,7 @@ export class ProblemComponent implements OnInit, OnDestroy, OnBeforeunload {
     this.timerService.roundTimerInit(this.difficulty);
     this.roundTimer = this.timerService.getRoundTimer();
     this.hintTimer = this.timerService.getHintTimer();
-    // this.nowRound = this.quizService.round;
-    [this.nowRound, this.rounds] = this.quizService.getRound();
+    this.currentRound = this.quizService.round;
   }
 
   ngOnInit(): void {
