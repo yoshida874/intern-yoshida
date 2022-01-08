@@ -8,6 +8,7 @@ import { DifficultyService } from 'src/app/services/difficulty/difficulty.servic
 import { TimerService } from 'src/app/services/timer/timer.service';
 import { Heritage } from 'src/app/types/heritage';
 import { Difficulty } from 'src/app/types/difficulty';
+import { OnBeforeunload } from 'src/app/guards/problem.guard';
 import { QuizConst, QuizConstInterface } from 'src/app/const/quiz';
 
 @Component({
@@ -15,8 +16,8 @@ import { QuizConst, QuizConstInterface } from 'src/app/const/quiz';
   templateUrl: './problem.component.html',
   styleUrls: ['./problem.component.scss'],
 })
-export class ProblemComponent implements OnInit, OnDestroy {
-  quizConst: QuizConstInterface = QuizConst;
+
+export class ProblemComponent implements OnInit, OnDestroy, OnBeforeunload {
   isVisibleHint: boolean = false;
   hintButtonDisabled: boolean = true;
   inputAnswer: string = '';
@@ -33,6 +34,8 @@ export class ProblemComponent implements OnInit, OnDestroy {
   heritage: Heritage;
   hints: string[] = [];
 
+  loadWarning = true;
+
   constructor(
     private quizService: QuizService,
     private difficultyService: DifficultyService,
@@ -48,9 +51,13 @@ export class ProblemComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // firestoreのデータをセット
-    this.hints = this.heritage.hint;
-    this.streetViewInit().then(() => this.timerCountInit());
+    if (this.quizService.isQuizzing) {
+      // firestoreのデータをセット
+      this.hints = this.heritage.hint;
+      this.streetViewInit().then(() => this.timerCountInit());
+    } else {
+      this.router.navigate(['top']);
+    }
   }
 
   ngOnDestroy(): void {
@@ -58,6 +65,17 @@ export class ProblemComponent implements OnInit, OnDestroy {
     if (this.timerInterval) {
       this.timerInterval.unsubscribe();
     }
+  }
+
+  beforeUnload(e: Event) {
+    if (this.shouldConfirmOnBeforeunload()) {
+      e.returnValue = true;
+    }
+  }
+
+  // アラートの表示を行うか
+  shouldConfirmOnBeforeunload() {
+    return !!this.loadWarning;
   }
 
   /**
@@ -76,7 +94,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
         pitch: 10,
       },
     };
-    await new google.maps.StreetViewPanorama(
+    new google.maps.StreetViewPanorama(
       document.getElementById('streetMap') as Element,
       option
     );
@@ -121,6 +139,7 @@ export class ProblemComponent implements OnInit, OnDestroy {
   roundSkip(): void {
     this.quizService.setMistakeCounts(this.incorrectAnswers.length);
     this.timerService.setRoundTimer();
+    this.loadWarning = false;
     this.router.navigate(['answer']);
   }
 }

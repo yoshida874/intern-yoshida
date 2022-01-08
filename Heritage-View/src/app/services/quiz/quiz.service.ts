@@ -15,16 +15,19 @@ export class QuizService {
   answerCount: number = 0;
   mistakeCounts: { [key: number]: number } = {};
   heritages: Heritage[] = [];
+  isQuizzing = false;
 
   constructor(private router: Router, private firestore: AngularFirestore) {}
 
   quizInit() {
     this.round = 0;
     this.answerCount = 0;
+    this.isQuizzing = false;
     this.heritages = [];
   }
 
   getHeritagesFromFirebase() {
+    this.isQuizzing = true;
     // クイズを取得し問題画面へ
     const heritageCollection = this.firestore.collection<Heritage>('heritage');
     const items = heritageCollection.valueChanges();
