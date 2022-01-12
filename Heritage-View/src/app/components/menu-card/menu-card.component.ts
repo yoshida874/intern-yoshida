@@ -8,15 +8,12 @@ export interface card {
 @Component({
   selector: 'app-menu-card',
   templateUrl: './menu-card.component.html',
-  styleUrls: ['./menu-card.component.scss']
+  styleUrls: ['./menu-card.component.scss'],
 })
 export class MenuCardComponent implements OnInit {
+  @Input() card: card = { title: '', imageSrc: '' };
 
-  @Input() card: card = {title: 'hoge', imageSrc: 'huga'};
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

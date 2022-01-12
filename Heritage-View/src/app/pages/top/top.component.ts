@@ -7,6 +7,7 @@ export interface card {
   title: string;
   imageSrc: string;
   link: string;
+  sixContinents: string;
 }
 
 @Component({
@@ -23,31 +24,37 @@ export class TopComponent implements OnInit {
       title: '全世界',
       imageSrc: '/assets/cardImages/全般.jpeg',
       link: '/problem',
+      sixContinents: 'all',
     },
     {
       title: 'アジア',
       imageSrc: '/assets/cardImages/アジア.jpeg',
       link: '/problem',
+      sixContinents: 'asia',
     },
     {
       title: 'ヨーロッパ',
       imageSrc: '/assets/cardImages/ヨーロッパ.jpeg',
       link: '/problem',
+      sixContinents: 'europe',
     },
     {
       title: 'アメリカ',
       imageSrc: '/assets/cardImages/アメリカ.jpeg',
       link: '/problem',
+      sixContinents: 'america',
     },
     {
       title: 'アフリカ',
       imageSrc: '/assets/cardImages/アフリカ.jpeg',
       link: '/problem',
+      sixContinents: 'Africa',
     },
     {
       title: '南アメリカ/オセアニア',
       imageSrc: '/assets/cardImages/南アメリカ.jpeg',
       link: '/problem',
+      sixContinents: 'southAmerica',
     },
   ];
 
@@ -59,9 +66,9 @@ export class TopComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  quizStart() {
+  quizStart(sixContinents: string) {
     this.timerService.initializeClearTimer();
     this.quizService.quizInit();
-    this.quizService.getHeritagesFromFirebase();
+    this.quizService.getHeritagesFromFirebase(sixContinents);
   }
 }
