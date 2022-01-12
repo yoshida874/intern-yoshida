@@ -2,29 +2,39 @@
   <div id="resultMap" class="map"></div>
 
   <div class="content">
-    <div class="wrap total-time-text">クリアタイム 0:00:00</div>
+    <div
+      class="wrap total-time-text"
+      *ngIf="difficultyService.difficulty === 'normal'; else elseBlock"
+    >
+      クリアタイム　{{ totalClearTime.toDate() | date: "mm:ss" }}
+    </div>
+    <ng-template #elseBlock>
+      <div class="wrap total-time-text">
+        正解数　{{ quizService.answerCount }}問
+      </div>
+    </ng-template>
 
     <div class="wrap share-text">ツイートして結果を共有しよう!!</div>
   </div>
 
   <div class="content">
     <div class="wrap">
-      <div
-        *ngFor="
-          let clearTime of timerService.getRoundClearTimes();
-          let i = index
-        "
-      >
+      <div *ngFor="let clearTime of roundClearTimes; let i = index">
         <span class="resultItem">ラウンド{{ i + 1 }}</span>
         <span class="resultItem">解答ミス {{ mistakeCounts[i] }}回</span>
         <span
           class="resultItem"
-          *ngIf="clearTime.format('mm:ss') !== '00:00'; else elseBlock"
+          *ngIf="difficultyService.difficulty === 'normal'; else elseBlock"
         >
           {{ clearTime.toDate() | date: "mm:ss" }}
         </span>
         <ng-template #elseBlock>
-          <span class="resultItem">時間切れ</span>
+          <span
+            *ngIf="clearTime.format('mm:ss') === '00:00'"
+            class="resultItem"
+          >
+            時間切れ
+          </span>
         </ng-template>
       </div>
     </div>
