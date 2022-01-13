@@ -79,7 +79,7 @@ export class QuizService {
 
   // FIXME: answerでしか使用していないので消す
   nextPage(): void {
-    if (this.round <= QuizConst.QUIZ_COUNT) {
+    if (this.round < QuizConst.QUIZ_COUNT) {
       this.router.navigate(['problem']);
     } else {
       this.router.navigate(['result']);
