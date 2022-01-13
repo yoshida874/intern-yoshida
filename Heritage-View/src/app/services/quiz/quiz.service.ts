@@ -28,10 +28,18 @@ export class QuizService {
 
   getHeritagesFromFirebase(sixContinents: string) {
     this.isQuizzing = true;
+
     // クイズを取得し問題画面へ
     const heritageCollection = this.firestore.collection<Heritage>(
       'heritage',
-      (ref) => ref.where('six_continents', '==', sixContinents)
+      (ref) => {
+        let query = ref.where('six_continents', '!=', '');
+        // ジャンル指定して取得
+        if (sixContinents !== 'all') {
+          query = ref.where('six_continents', '==', sixContinents);
+        }
+        return query;
+      }
     );
     const items = heritageCollection.valueChanges();
     items.subscribe((value) => {
