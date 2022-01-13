@@ -47,7 +47,7 @@ export class AnswerComponent implements OnInit, OnBeforeunload {
 
   ngOnInit(): void {
     this.googleMapInit();
-    this.isLastRound = this.quizService.round === this.quizConst.QUIZ_COUNT;
+    this.isLastRound = this.quizService.round + 1 === this.quizConst.QUIZ_COUNT;
   }
 
   beforeUnload(e: Event) {
