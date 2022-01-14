@@ -35,7 +35,11 @@
 
       <div class="wrap-end">
         <app-primary-button
-          [text]="isLastRound ? '結果へ' : '次の問題へ'"
+          [text]="
+            quizService.round + 1 === quizConst.QUIZ_COUNT
+              ? '結果へ'
+              : '次の問題へ'
+          "
           class="next-button"
           (onClick)="nextQuiz()"
         >

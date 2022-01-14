@@ -26,12 +26,11 @@ export class AnswerComponent implements OnInit, OnBeforeunload {
 
   currentRound = 0;
   nextButtonText = '次の問題へ';
-  isLastRound = false;
 
   loadWarning = true;
 
   constructor(
-    private quizService: QuizService,
+    public quizService: QuizService,
     private timerService: TimerService,
     private difficultyService: DifficultyService,
     private storage: AngularFireStorage,
@@ -47,7 +46,6 @@ export class AnswerComponent implements OnInit, OnBeforeunload {
 
   ngOnInit(): void {
     this.googleMapInit();
-    this.isLastRound = this.quizService.round + 1 === this.quizConst.QUIZ_COUNT;
   }
 
   beforeUnload(e: Event) {
