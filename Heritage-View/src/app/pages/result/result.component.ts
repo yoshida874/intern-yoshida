@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
 import { QuizService } from 'src/app/services/quiz/quiz.service';
 import { TimerService } from 'src/app/services/timer/timer.service';
+import { DifficultyService } from 'src/app/services/difficulty/difficulty.service';
 import { Heritage } from 'src/app/types/heritage';
 
 export interface roundResult {
@@ -17,17 +18,32 @@ export interface roundResult {
 export class ResultComponent implements OnInit {
   heritages: Heritage[] = [];
   mistakeCounts: { [key: number]: number } = [];
+  roundClearTimes: dayjs.Dayjs[] = [];
+  totalClearTime = dayjs().minute(0).second(0);
 
   constructor(
-    private quizService: QuizService,
-    public timerService: TimerService
+    public quizService: QuizService,
+    private timerService: TimerService,
+    public difficultyService: DifficultyService
   ) {
     this.heritages = quizService.getAllQuiz();
     this.mistakeCounts = quizService.getMistakeCounts();
+    this.roundClearTimes = timerService.getRoundClearTimes();
   }
 
   ngOnInit(): void {
     this.googleMapInit();
+    // クリアタイムの計算
+    this.roundClearTimes.forEach((roundClearTime) => {
+      this.totalClearTime = dayjs(this.totalClearTime).add(
+        roundClearTime.minute(),
+        'm'
+      );
+      this.totalClearTime = dayjs(this.totalClearTime).add(
+        roundClearTime.second(),
+        's'
+      );
+    });
   }
 
   /**
