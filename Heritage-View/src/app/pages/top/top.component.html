@@ -15,7 +15,7 @@
 
   <div class="menu-card-content">
     <div class="wrap" *ngFor="let card of cards">
-      <button mat-button (click)="quizStart()">
+      <button mat-button (click)="quizStart(card.sixContinents)">
         <app-menu-card [card]="card"></app-menu-card>
       </button>
     </div>

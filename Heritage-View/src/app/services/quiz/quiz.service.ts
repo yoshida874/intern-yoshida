@@ -26,13 +26,25 @@ export class QuizService {
     this.heritages = [];
   }
 
-  getHeritagesFromFirebase() {
+  getHeritagesFromFirebase(sixContinents: string) {
     this.isQuizzing = true;
+
     // クイズを取得し問題画面へ
-    const heritageCollection = this.firestore.collection<Heritage>('heritage');
+    const heritageCollection = this.firestore.collection<Heritage>(
+      'heritage',
+      (ref) => {
+        let query = ref.where('six_continents', '!=', '');
+        // ジャンル指定して取得
+        if (sixContinents !== 'all') {
+          query = ref.where('six_continents', '==', sixContinents);
+        }
+        return query;
+      }
+    );
     const items = heritageCollection.valueChanges();
     items.subscribe((value) => {
-      this.heritages = value;
+      // ランダムに並び替え後QUIZ_COUNT分の値を取得
+      this.heritages = _.sampleSize(value, QuizConst.QUIZ_COUNT);
       // TODO: 画面遷移をcontroller側で
       this.router.navigate(['problem']);
     });
@@ -45,7 +57,6 @@ export class QuizService {
   getAllQuiz(): Heritage[] {
     return this.heritages;
   }
-
 
   getMistakeCounts(): { [key: number]: number } {
     return this.mistakeCounts;
@@ -68,7 +79,7 @@ export class QuizService {
 
   // FIXME: answerでしか使用していないので消す
   nextPage(): void {
-    if (this.round <= QuizConst.QUIZ_COUNT) {
+    if (this.round < QuizConst.QUIZ_COUNT) {
       this.router.navigate(['problem']);
     } else {
       this.router.navigate(['result']);

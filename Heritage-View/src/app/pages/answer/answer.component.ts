@@ -16,7 +16,6 @@ import { QuizConst, QuizConstInterface } from 'src/app/const/quiz';
   templateUrl: './answer.component.html',
   styleUrls: ['./answer.component.scss'],
 })
-
 export class AnswerComponent implements OnInit, OnBeforeunload {
   quizConst: QuizConstInterface = QuizConst;
 
@@ -27,12 +26,11 @@ export class AnswerComponent implements OnInit, OnBeforeunload {
 
   currentRound = 0;
   nextButtonText = '次の問題へ';
-  isLastRound = false;
 
   loadWarning = true;
 
   constructor(
-    private quizService: QuizService,
+    public quizService: QuizService,
     private timerService: TimerService,
     private difficultyService: DifficultyService,
     private storage: AngularFireStorage,
@@ -42,15 +40,14 @@ export class AnswerComponent implements OnInit, OnBeforeunload {
     this.roundTimer = this.timerService.getRoundTimer();
     this.difficulty = this.difficultyService.getDifficulty();
     this.currentRound = this.quizService.round;
-    const ref = storage.refFromURL(this.heritage.imgUrl);
+    const ref = storage.refFromURL(this.heritage.img_url);
     this.imgUrl = ref.getDownloadURL();
   }
 
   ngOnInit(): void {
     this.googleMapInit();
-    this.isLastRound = this.quizService.round === this.quizConst.QUIZ_COUNT;
   }
- 
+
   beforeUnload(e: Event) {
     if (this.shouldConfirmOnBeforeunload()) {
       e.returnValue = true;
