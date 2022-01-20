@@ -48,7 +48,7 @@ export class TopComponent implements OnInit {
       title: 'アフリカ',
       imageSrc: '/assets/cardImages/アフリカ.jpeg',
       link: '/problem',
-      sixContinents: 'Africa',
+      sixContinents: 'africa',
     },
     {
       title: '南アメリカ/オセアニア',
